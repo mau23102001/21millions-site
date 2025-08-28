@@ -42,7 +42,7 @@ const WHATSAPP_LINK =
 export default function Landing21Millions() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Tabs controlados (Servicios)
+  // Tabs controlados (Servicios) — valor inicial "empresas"
   const [tab, setTab] = useState<"personas" | "empresas">("empresas");
 
   return (
@@ -71,18 +71,10 @@ export default function Landing21Millions() {
               aria-label="Navegación principal"
               className="hidden md:flex items-center gap-6 text-sm"
             >
-              <a href="#servicios" className="hover:text-neutral-700">
-                Servicios
-              </a>
-              <a href="#proceso" className="hover:text-neutral-700">
-                Cómo trabajamos
-              </a>
-              <a href="#niif" className="hover:text-neutral-700">
-                NIIF &amp; SUNAT
-              </a>
-              <a href="#faq" className="hover:text-neutral-700">
-                FAQ
-              </a>
+              <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
+              <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
+              <a href="#niif" className="hover:text-neutral-700">NIIF &amp; SUNAT</a>
+              <a href="#faq" className="hover:text-neutral-700">FAQ</a>
             </nav>
 
             {/* Derecha: CTA */}
@@ -98,9 +90,7 @@ export default function Landing21Millions() {
                   Agenda diagnóstico
                 </Button>
               </a>
-              <a href={`mailto:${EMAIL}`} className="sr-only">
-                Escríbenos por email
-              </a>
+              <a href={`mailto:${EMAIL}`} className="sr-only">Escríbenos por email</a>
 
               {/* Botón hamburguesa (móvil) */}
               <button
@@ -109,20 +99,14 @@ export default function Landing21Millions() {
                 onClick={() => setMobileOpen((v) => !v)}
               >
                 <span className="sr-only">Abrir menú</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
             </div>
           </div>
 
-          {/* Menú móvil */}
+          {/* Menú móvil (cubre pantalla para recibir clics) */}
           {mobileOpen && (
             <nav
               id="mobile-menu"
@@ -231,17 +215,13 @@ export default function Landing21Millions() {
         </section>
 
         {/* =================== SERVICIOS =================== */}
-        <section
-          id="servicios"
-          className="relative z-[300] isolate py-16 lg:py-24 scroll-mt-24"
-        >
+        <section id="servicios" className="relative z-[300] isolate py-16 lg:py-24 scroll-mt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-auto">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
               <p className="mt-2 text-neutral-700">
                 Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
               </p>
-
               {/* Chip de depuración (opcional) */}
               <div className="mt-3 inline-flex items-center gap-2 text-xs px-2 py-1 rounded-full border bg-neutral-50">
                 <span className="opacity-70">tab actual:</span>
@@ -304,92 +284,69 @@ export default function Landing21Millions() {
               </div>
             </div>
 
-            {/* Panel PERSONAS */}
-            <div
-              id="panel-personas"
-              role="tabpanel"
-              aria-labelledby="tab-personas"
-              hidden={tab !== "personas"}
-              className="mt-8 grid md:grid-cols-3 gap-6"
-            >
-              <Card className="rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="text-lg">Asesoría Personal</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm space-y-2">
-                  <p>Planificación financiera y tesorería adaptada a personas naturales.</p>
-                </CardContent>
-              </Card>
+            {/* Paneles: SOLO se monta el seleccionado */}
+            {tab === "personas" ? (
+              <div id="panel-personas" role="tabpanel" aria-labelledby="tab-personas" className="mt-8 grid md:grid-cols-3 gap-6">
+                <Card className="rounded-2xl">
+                  <CardHeader><CardTitle className="text-lg">Asesoría Personal</CardTitle></CardHeader>
+                  <CardContent className="text-sm space-y-2">
+                    <p>Planificación financiera y tesorería adaptada a personas naturales.</p>
+                  </CardContent>
+                </Card>
 
-              <Card className="rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="text-lg">Ahorro en BTC</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm space-y-2">
-                  <p>Estrategias de ahorro a largo plazo con Bitcoin como reserva de valor.</p>
-                </CardContent>
-              </Card>
+                <Card className="rounded-2xl">
+                  <CardHeader><CardTitle className="text-lg">Ahorro en BTC</CardTitle></CardHeader>
+                  <CardContent className="text-sm space-y-2">
+                    <p>Estrategias de ahorro a largo plazo con Bitcoin como reserva de valor.</p>
+                  </CardContent>
+                </Card>
 
-              <Card className="rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="text-lg">Seguridad y Custodia</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm space-y-2">
-                  <p>Recomendaciones sobre almacenamiento seguro y control personal.</p>
-                </CardContent>
-              </Card>
-            </div>
+                <Card className="rounded-2xl">
+                  <CardHeader><CardTitle className="text-lg">Seguridad y Custodia</CardTitle></CardHeader>
+                  <CardContent className="text-sm space-y-2">
+                    <p>Recomendaciones sobre almacenamiento seguro y control personal.</p>
+                  </CardContent>
+                </Card>
+              </div>
+            ) : (
+              <div id="panel-empresas" role="tabpanel" aria-labelledby="tab-empresas" className="mt-8 grid md:grid-cols-3 gap-6">
+                <Card className="rounded-2xl">
+                  <CardHeader><CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle></CardHeader>
+                  <CardContent className="text-sm space-y-2">
+                    <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Mapa de riesgos</li>
+                      <li>Ventanas de compra</li>
+                      <li>Propuesta de % inicial</li>
+                    </ul>
+                  </CardContent>
+                </Card>
 
-            {/* Panel EMPRESAS */}
-            <div
-              id="panel-empresas"
-              role="tabpanel"
-              aria-labelledby="tab-empresas"
-              hidden={tab !== "empresas"}
-              className="mt-8 grid md:grid-cols-3 gap-6"
-            >
-              <Card className="rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm space-y-2">
-                  <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>Mapa de riesgos</li>
-                    <li>Ventanas de compra</li>
-                    <li>Propuesta de % inicial</li>
-                  </ul>
-                </CardContent>
-              </Card>
+                <Card className="rounded-2xl">
+                  <CardHeader><CardTitle className="text-lg">Política BTC en el Balance</CardTitle></CardHeader>
+                  <CardContent className="text-sm space-y-2">
+                    <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Gobernanza & firmas</li>
+                      <li>NIIF (activo intangible) y revelaciones</li>
+                      <li>Procedimientos operativos</li>
+                    </ul>
+                  </CardContent>
+                </Card>
 
-              <Card className="rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="text-lg">Política BTC en el Balance</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm space-y-2">
-                  <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>Gobernanza & firmas</li>
-                    <li>NIIF (activo intangible) y revelaciones</li>
-                    <li>Procedimientos operativos</li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card className="rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="text-lg">Implementación & Seguimiento</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm space-y-2">
-                  <p>Acompañamiento en la ejecución y reportes trimestrales para directorio.</p>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>KPIs y tablero</li>
-                    <li>Compliance SUNAT</li>
-                    <li>Auditoría interna</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
+                <Card className="rounded-2xl">
+                  <CardHeader><CardTitle className="text-lg">Implementación & Seguimiento</CardTitle></CardHeader>
+                  <CardContent className="text-sm space-y-2">
+                    <p>Acompañamiento en la ejecución y reportes trimestrales para directorio.</p>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>KPIs y tablero</li>
+                      <li>Compliance SUNAT</li>
+                      <li>Auditoría interna</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
           </div>
         </section>
         {/* ================= FIN SERVICIOS ================= */}
@@ -405,26 +362,10 @@ export default function Landing21Millions() {
             </div>
             <div className="mt-10 grid md:grid-cols-4 gap-6">
               {[
-                {
-                  icon: Briefcase,
-                  title: "1. Diagnóstico",
-                  desc: "Balance, flujos y caja ociosa. Identificamos % prudente de inicio.",
-                },
-                {
-                  icon: LineChart,
-                  title: "2. Estrategia",
-                  desc: "Calendario de compras, rebalance y umbrales; sin trading especulativo.",
-                },
-                {
-                  icon: Shield,
-                  title: "3. Custodia",
-                  desc: "Arquitectura de seguridad: cold/multisig, roles y procedimientos.",
-                },
-                {
-                  icon: FileCheck2,
-                  title: "4. Reportes",
-                  desc: "Estados trimestrales, revelaciones NIIF y anexo de compliance.",
-                },
+                { icon: Briefcase, title: "1. Diagnóstico", desc: "Balance, flujos y caja ociosa. Identificamos % prudente de inicio." },
+                { icon: LineChart, title: "2. Estrategia", desc: "Calendario de compras, rebalance y umbrales; sin trading especulativo." },
+                { icon: Shield, title: "3. Custodia", desc: "Arquitectura de seguridad: cold/multisig, roles y procedimientos." },
+                { icon: FileCheck2, title: "4. Reportes", desc: "Estados trimestrales, revelaciones NIIF y anexo de compliance." },
               ].map(({ icon: Icon, title, desc }, i) => (
                 <Card key={i} className="rounded-2xl">
                   <CardHeader className="flex flex-row items-center gap-3">
@@ -459,9 +400,7 @@ export default function Landing21Millions() {
               </div>
               <div className="lg:col-span-6">
                 <Card className="rounded-2xl">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Documentos incluidos</CardTitle>
-                  </CardHeader>
+                  <CardHeader><CardTitle className="text-lg">Documentos incluidos</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <div className="flex items-center gap-2">
                       <Scale className="h-4 w-4" /> Política de Tesorería BTC
@@ -544,9 +483,7 @@ export default function Landing21Millions() {
               </div>
               <div className="lg:col-span-5">
                 <Card className="bg-white text-neutral-900 rounded-2xl">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Déjanos tus datos</CardTitle>
-                  </CardHeader>
+                  <CardHeader><CardTitle className="text-lg">Déjanos tus datos</CardTitle></CardHeader>
                   <CardContent>
                     <form method="POST" action="https://formspree.io/f/your-id" className="space-y-4">
                       <input name="name" required placeholder="Nombre y apellido" className="w-full border rounded-xl px-4 py-3" />
@@ -566,7 +503,7 @@ export default function Landing21Millions() {
         </section>
       </div>
 
-      {/* Schema.org FAQPage */}
+      {/* Schema.org FAQPage (si tu CSP lo bloquea, puedes quitarlo) */}
       <Script id="ld-faq" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify({
           "@context": "https://schema.org",
