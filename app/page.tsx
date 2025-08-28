@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Script from "next/script";
 
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
@@ -42,7 +41,7 @@ const WHATSAPP_LINK =
 export default function Landing21Millions() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Tabs controlados (Servicios) — valor inicial "empresas"
+  // Tabs controlados (Servicios)
   const [tab, setTab] = useState<"personas" | "empresas">("empresas");
 
   return (
@@ -106,7 +105,7 @@ export default function Landing21Millions() {
             </div>
           </div>
 
-          {/* Menú móvil (cubre pantalla para recibir clics) */}
+          {/* Menú móvil */}
           {mobileOpen && (
             <nav
               id="mobile-menu"
@@ -126,9 +125,7 @@ export default function Landing21Millions() {
 
         {/* Hero */}
         <section className="relative overflow-hidden">
-          {/* Fondo detrás (no captura clics) */}
           <div className="absolute inset-0 -z-10 pointer-events-none bg-gradient-to-b from-yellow-50 via-white to-white" />
-
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-[10]">
             <motion.div
               initial={{ opacity: 1, y: 0 }}
@@ -137,7 +134,6 @@ export default function Landing21Millions() {
               transition={{ duration: 0.4 }}
               className="grid lg:grid-cols-12 gap-10 items-center"
             >
-              {/* Texto principal */}
               <div className="lg:col-span-7">
                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
                   Tesorería inteligente en Bitcoin para{" "}
@@ -168,7 +164,6 @@ export default function Landing21Millions() {
                 </div>
               </div>
 
-              {/* Tarjeta lateral */}
               <div className="lg:col-span-5">
                 <Card className="shadow-xl rounded-2xl">
                   <CardHeader>
@@ -222,14 +217,13 @@ export default function Landing21Millions() {
               <p className="mt-2 text-neutral-700">
                 Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
               </p>
-              {/* Chip de depuración (opcional) */}
               <div className="mt-3 inline-flex items-center gap-2 text-xs px-2 py-1 rounded-full border bg-neutral-50">
                 <span className="opacity-70">tab actual:</span>
                 <span className="font-mono">{tab}</span>
               </div>
             </div>
 
-            {/* Tabs accesibles */}
+            {/* Tabs */}
             <div className="mt-6 max-w-md">
               <div
                 role="tablist"
@@ -284,7 +278,7 @@ export default function Landing21Millions() {
               </div>
             </div>
 
-            {/* Paneles: SOLO se monta el seleccionado */}
+            {/* Panel (solo uno montado) */}
             {tab === "personas" ? (
               <div id="panel-personas" role="tabpanel" aria-labelledby="tab-personas" className="mt-8 grid md:grid-cols-3 gap-6">
                 <Card className="rounded-2xl">
@@ -502,34 +496,6 @@ export default function Landing21Millions() {
           </div>
         </section>
       </div>
-
-      {/* Schema.org FAQPage (si tu CSP lo bloquea, puedes quitarlo) */}
-      <Script id="ld-faq" type="application/ld+json" strategy="afterInteractive">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: [
-            {
-              "@type": "Question",
-              name: "¿Ustedes compran o custodian Bitcoin por mí?",
-              acceptedAnswer: {
-                "@type": "Answer",
-                text:
-                  "No. Somos consultores. Diseñamos la estrategia y te guiamos para que compres y custodies tú (o tu empresa) con buenas prácticas y controles internos.",
-              },
-            },
-            {
-              "@type": "Question",
-              name: "¿Cómo se refleja en la contabilidad (NIIF)?",
-              acceptedAnswer: {
-                "@type": "Answer",
-                text:
-                  "En general, como activo intangible, con revelaciones y políticas de valuación/impairment documentadas. Entregamos formatos y anexos de soporte para auditoría.",
-              },
-            },
-          ],
-        })}
-      </Script>
     </>
   );
 }
