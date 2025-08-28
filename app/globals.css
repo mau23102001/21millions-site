@@ -1,6 +1,29 @@
+/* app/globals.css */
 
+/* Tailwind layers */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body { @apply bg-white text-neutral-900; }
+/* ===== Tokens de marca ===== */
+:root {
+  --brand: #E0AA29;
+  --brand-hover: #D29922;
+}
+
+/* ===== Defaults ===== */
+html { scroll-behavior: smooth; }
+
+body {
+  @apply bg-white text-neutral-900 antialiased;
+}
+
+/* Tipografía para bloques largos (opcional) */
+.prose-brand {
+  @apply prose prose-neutral max-w-none;
+}
+
+/* Botón principal reutilizable (opcional) */
+.btn-primary {
+  @apply bg-brand hover:bg-brand-hover text-black font-medium rounded-xl px-5 py-3 shadow transition;
+}

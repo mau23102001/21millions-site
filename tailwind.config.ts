@@ -17,7 +17,6 @@ export default {
         xl: "3rem",
         "2xl": "4rem",
       },
-      // limita el ancho máx. del container
       screens: {
         "2xl": "1280px",
       },
@@ -25,8 +24,8 @@ export default {
     extend: {
       colors: {
         brand: {
-          DEFAULT: "#E0AA29", // color principal (amarillo 21M)
-          hover: "#D29922",    // hover del CTA
+          DEFAULT: "#E0AA29",
+          hover: "#D29922",
           50:  "#FFF8E6",
           100: "#FDEFC3",
           200: "#F8DA7A",
