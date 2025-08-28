@@ -143,57 +143,45 @@ export default function Landing21Millions() {
 
        {/* Hero */}
 <section className="relative overflow-hidden">
-  {/* Fondo del hero (enviamos atrás con -z-10) */}
+  {/* Fondo detrás */}
   <div className="absolute inset-0 -z-10 bg-gradient-to-b from-yellow-50 via-white to-white" />
 
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10">
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      /** Arranca visible para evitar parpadeo o quedarse oculto si falla la hidratación */
+      initial={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4 }}
       className="grid lg:grid-cols-12 gap-10 items-center"
     >
       {/* Texto principal */}
       <div className="lg:col-span-7">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
           Tesorería inteligente en Bitcoin para{" "}
-          <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">
-            personas
-          </span>{" "}
-          y{" "}
-          <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">
-            empresas
-          </span>.
+          <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">personas</span> y{" "}
+          <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">empresas</span>.
         </h1>
         <p className="mt-6 text-lg text-neutral-700 max-w-2xl">
-          Convertimos caja ociosa en una política de reserva de valor con
-          enfoque de largo plazo. Diseño de estrategia, acompañamiento
-          contable y compliance local.
+          Convertimos caja ociosa en una política de reserva de valor con enfoque de largo plazo.
+          Diseño de estrategia, acompañamiento contable y compliance local.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href="#contacto">
-            <Button
-              size="lg"
-              className="bg-brand hover:bg-brand-dark text-black"
-            >
+            <Button size="lg" className="bg-brand hover:bg-brand-dark text-black">
               Agenda tu diagnóstico gratuito
             </Button>
           </a>
-          <a
-            href="#servicios"
-            className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80"
-          >
+          <a href="#servicios" className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80">
             Ver servicios <ArrowRight className="h-4 w-4" />
           </a>
         </div>
         <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-neutral-600">
           <div className="flex items-center gap-2">
-            <Shield className="h-4 w-4" /> Enfoque no-custodia / sin trading por
-            cuenta del cliente
+            <Shield className="h-4 w-4" /> Enfoque no-custodia / sin trading por cuenta del cliente
           </div>
           <div className="flex items-center gap-2">
-            <FileCheck2 className="h-4 w-4" /> Metodología documentada y
-            auditable
+            <FileCheck2 className="h-4 w-4" /> Metodología documentada y auditable
           </div>
         </div>
       </div>
@@ -202,9 +190,7 @@ export default function Landing21Millions() {
       <div className="lg:col-span-5">
         <Card className="shadow-xl rounded-2xl">
           <CardHeader>
-            <CardTitle className="text-xl">
-              Caso rápido: Asignación 5% de caja
-            </CardTitle>
+            <CardTitle className="text-xl">Caso rápido: Asignación 5% de caja</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
             <div className="flex items-center justify-between">
@@ -224,8 +210,7 @@ export default function Landing21Millions() {
               <span>36–60 meses</span>
             </div>
             <div className="flex items-center gap-2 text-neutral-600">
-              <CheckCircle className="h-4 w-4" /> Política de inversión aprobada
-              por comité de tesorería
+              <CheckCircle className="h-4 w-4" /> Política de inversión aprobada por comité de tesorería
             </div>
           </CardContent>
         </Card>
@@ -233,6 +218,7 @@ export default function Landing21Millions() {
     </motion.div>
   </div>
 </section>
+
 
 
         {/* Trust strip */}
