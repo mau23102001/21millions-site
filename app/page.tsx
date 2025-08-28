@@ -7,6 +7,7 @@ import Script from "next/script";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../components/ui/accordion";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "../components/ui/tabs";
 
 import {
   CheckCircle,
@@ -37,7 +38,9 @@ const WHATSAPP_LINK =
 /** ===== Página ===== */
 export default function Landing21Millions() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<"personas" | "empresas">("empresas");
+
+  // Estado CONTROLADO para los tabs de Servicios
+  const [tab, setTab] = useState<"personas" | "empresas">("empresas");
 
   return (
     <>
@@ -142,14 +145,18 @@ export default function Landing21Millions() {
 
         {/* Hero */}
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-yellow-50 via-white to-white" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative">
+          {/* Fondo detrás */}
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-yellow-50 via-white to-white" />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
               className="grid lg:grid-cols-12 gap-10 items-center"
             >
+              {/* Texto principal */}
               <div className="lg:col-span-7">
                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
                   Tesorería inteligente en Bitcoin para{" "}
@@ -157,8 +164,8 @@ export default function Landing21Millions() {
                   <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">empresas</span>.
                 </h1>
                 <p className="mt-6 text-lg text-neutral-700 max-w-2xl">
-                  Convertimos caja ociosa en una política de reserva de valor con enfoque de largo plazo. Diseño de
-                  estrategia, acompañamiento contable y compliance local.
+                  Convertimos caja ociosa en una política de reserva de valor con enfoque de largo plazo.
+                  Diseño de estrategia, acompañamiento contable y compliance local.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a href="#contacto">
@@ -166,10 +173,7 @@ export default function Landing21Millions() {
                       Agenda tu diagnóstico gratuito
                     </Button>
                   </a>
-                  <a
-                    href="#servicios"
-                    className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80"
-                  >
+                  <a href="#servicios" className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80">
                     Ver servicios <ArrowRight className="h-4 w-4" />
                   </a>
                 </div>
@@ -182,6 +186,8 @@ export default function Landing21Millions() {
                   </div>
                 </div>
               </div>
+
+              {/* Tarjeta lateral */}
               <div className="lg:col-span-5">
                 <Card className="shadow-xl rounded-2xl">
                   <CardHeader>
@@ -227,137 +233,127 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* ===================== SERVICIOS (Forzado anti-overlay) ===================== */}
-<section id="servicios" className="py-16 lg:py-24 scroll-mt-24 relative z-40 pointer-events-auto">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="max-w-2xl">
-      <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
-      <p className="mt-2 text-neutral-700">
-        Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
-      </p>
-    </div>
+        {/* ================== SERVICIOS (AJUSTE MÍNIMO) ================== */}
+        <section id="servicios" className="py-16 lg:py-24 scroll-mt-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
+              <p className="mt-2 text-neutral-700">
+                Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
+              </p>
+            </div>
 
-    {/* TABLIST — MUY ARRIBA DE TODO */}
-    <div
-      role="tablist"
-      aria-label="Tipo de cliente"
-      className="mt-8 inline-flex rounded-xl border bg-neutral-50 p-1 relative z-50 pointer-events-auto"
-    >
-      <button
-        type="button"
-        role="tab"
-        aria-selected={activeTab === "personas"}
-        onClick={() => { console.log("click personas"); setActiveTab("personas"); }}
-        className={`px-4 py-2 rounded-lg text-sm inline-flex items-center gap-2 transition ${
-          activeTab === "personas"
-            ? "bg-white shadow font-medium text-neutral-800"
-            : "text-neutral-600 hover:text-neutral-800"
-        }`}
-        style={{ position: 'relative', zIndex: 60, pointerEvents: 'auto' }}
-      >
-        <User className="h-4 w-4" />
-        Personas naturales
-      </button>
+            <div className="mt-8 relative">
+              <Tabs value={tab} onValueChange={(v) => setTab(v as "personas" | "empresas")}>
+                <TabsList className="grid grid-cols-2 max-w-md relative z-20">
+                  <TabsTrigger value="personas" className="flex items-center gap-2">
+                    <User className="h-4 w-4" />
+                    Personas naturales
+                  </TabsTrigger>
+                  <TabsTrigger value="empresas" className="flex items-center gap-2">
+                    <Building2 className="h-4 w-4" />
+                    Empresas
+                  </TabsTrigger>
+                </TabsList>
 
-      <button
-        type="button"
-        role="tab"
-        aria-selected={activeTab === "empresas"}
-        onClick={() => { console.log("click empresas"); setActiveTab("empresas"); }}
-        className={`px-4 py-2 rounded-lg text-sm inline-flex items-center gap-2 transition ${
-          activeTab === "empresas"
-            ? "bg-white shadow font-medium text-neutral-800"
-            : "text-neutral-600 hover:text-neutral-800"
-        }`}
-        style={{ position: 'relative', zIndex: 60, pointerEvents: 'auto' }}
-      >
-        <Building2 className="h-4 w-4" />
-        Empresas
-      </button>
-    </div>
+                {/* Personas */}
+                <TabsContent value="personas" className="mt-8">
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <Card className="rounded-2xl">
+                      <CardHeader>
+                        <CardTitle className="text-lg">Plan Ahorro BTC</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-sm space-y-2">
+                        <p>Definición de % de ingresos, calendario de compras y custodia personal segura.</p>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>Estrategia DCA y umbrales</li>
+                          <li>Configuración de billeteras (cold / multisig)</li>
+                          <li>Checklist de seguridad</li>
+                        </ul>
+                      </CardContent>
+                    </Card>
 
-    {/* CONTENIDO */}
-    {activeTab === "personas" ? (
-      <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-30 pointer-events-auto">
-        <Card className="rounded-2xl">
-          <CardHeader><CardTitle className="text-lg">Plan Ahorro BTC</CardTitle></CardHeader>
-          <CardContent className="text-sm space-y-2">
-            <p>Definición de % de ingresos, calendario de compras y custodia personal segura.</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Estrategia DCA y umbrales</li>
-              <li>Configuración de billeteras (cold / multisig)</li>
-              <li>Checklist de seguridad</li>
-            </ul>
-          </CardContent>
-        </Card>
+                    <Card className="rounded-2xl">
+                      <CardHeader>
+                        <CardTitle className="text-lg">Plan Patrimonial</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-sm space-y-2">
+                        <p>Marco de objetivos a 5–10 años integrando BTC como reserva personal.</p>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>Gestión de riesgo y liquidez</li>
+                          <li>Plan de herencia y acceso</li>
+                          <li>Rebalanceo anual</li>
+                        </ul>
+                      </CardContent>
+                    </Card>
 
-        <Card className="rounded-2xl">
-          <CardHeader><CardTitle className="text-lg">Plan Patrimonial</CardTitle></CardHeader>
-          <CardContent className="text-sm space-y-2">
-            <p>Marco de objetivos a 5–10 años integrando BTC como reserva personal.</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Gestión de riesgo y liquidez</li>
-              <li>Plan de herencia y acceso</li>
-              <li>Rebalanceo anual</li>
-            </ul>
-          </CardContent>
-        </Card>
+                    <Card className="rounded-2xl">
+                      <CardHeader>
+                        <CardTitle className="text-lg">Onboarding & Seguridad</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-sm space-y-2">
+                        <p>Sesión guiada: compras, transferencias y registros de respaldo.</p>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>Buenas prácticas KYC/AML</li>
+                          <li>Pruebas de restauración</li>
+                          <li>Plan de incidentes</li>
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </TabsContent>
 
-        <Card className="rounded-2xl">
-          <CardHeader><CardTitle className="text-lg">Onboarding & Seguridad</CardTitle></CardHeader>
-          <CardContent className="text-sm space-y-2">
-            <p>Sesión guiada: compras, transferencias y registros de respaldo.</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Buenas prácticas KYC/AML</li>
-              <li>Pruebas de restauración</li>
-              <li>Plan de incidentes</li>
-            </ul>
-          </CardContent>
-        </Card>
-      </div>
-    ) : (
-      <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-30 pointer-events-auto">
-        <Card className="rounded-2xl">
-          <CardHeader><CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle></CardHeader>
-          <CardContent className="text-sm space-y-2">
-            <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Mapa de riesgos</li>
-              <li>Ventanas de compra</li>
-              <li>Propuesta de % inicial</li>
-            </ul>
-          </CardContent>
-        </Card>
+                {/* Empresas */}
+                <TabsContent value="empresas" className="mt-8">
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <Card className="rounded-2xl">
+                      <CardHeader>
+                        <CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-sm space-y-2">
+                        <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>Mapa de riesgos</li>
+                          <li>Ventanas de compra</li>
+                          <li>Propuesta de % inicial</li>
+                        </ul>
+                      </CardContent>
+                    </Card>
 
-        <Card className="rounded-2xl">
-          <CardHeader><CardTitle className="text-lg">Política BTC en el Balance</CardTitle></CardHeader>
-          <CardContent className="text-sm space-y-2">
-            <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Gobernanza & firmas</li>
-              <li>NIIF (activo intangible) y revelaciones</li>
-              <li>Procedimientos operativos</li>
-            </ul>
-          </CardContent>
-        </Card>
+                    <Card className="rounded-2xl">
+                      <CardHeader>
+                        <CardTitle className="text-lg">Política BTC en el Balance</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-sm space-y-2">
+                        <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>Gobernanza & firmas</li>
+                          <li>NIIF (activo intangible) y revelaciones</li>
+                          <li>Procedimientos operativos</li>
+                        </ul>
+                      </CardContent>
+                    </Card>
 
-        <Card className="rounded-2xl">
-          <CardHeader><CardTitle className="text-lg">Implementación & Seguimiento</CardTitle></CardHeader>
-          <CardContent className="text-sm space-y-2">
-            <p>Acompañamiento en la ejecución y reportes trimestrales para directorio.</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>KPIs y tablero</li>
-              <li>Compliance SUNAT</li>
-              <li>Auditoría interna</li>
-            </ul>
-          </CardContent>
-        </Card>
-      </div>
-    )}
-  </div>
-</section>
-{/* =================== FIN SERVICIOS =================== */}
-
+                    <Card className="rounded-2xl">
+                      <CardHeader>
+                        <CardTitle className="text-lg">Implementación & Seguimiento</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-sm space-y-2">
+                        <p>Acompañamiento en la ejecución y reportes trimestrales para directorio.</p>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>KPIs y tablero</li>
+                          <li>Compliance SUNAT</li>
+                          <li>Auditoría interna</li>
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+          </div>
+        </section>
+        {/* ================== FIN SERVICIOS ================== */}
 
         {/* Proceso */}
         <section id="proceso" className="py-16 lg:py-24 bg-neutral-50 scroll-mt-24">
@@ -511,6 +507,7 @@ export default function Landing21Millions() {
                     <CardTitle className="text-lg">Déjanos tus datos</CardTitle>
                   </CardHeader>
                   <CardContent>
+                    {/* Si usas Formspree, reemplaza your-id */}
                     <form method="POST" action="https://formspree.io/f/your-id" className="space-y-4">
                       <input name="name" required placeholder="Nombre y apellido" className="w-full border rounded-xl px-4 py-3" />
                       <input name="email" type="email" required placeholder="Correo" className="w-full border rounded-xl px-4 py-3" />
@@ -546,7 +543,7 @@ export default function Landing21Millions() {
         </footer>
       </div>
 
-      {/* Schema.org FAQPage */}
+      {/* Schema.org FAQPage (seguro con next/script) */}
       <Script id="ld-faq" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify({
           "@context": "https://schema.org",
