@@ -157,108 +157,128 @@ export default function Landing21Millions() {
         </section>
 
         {/* Servicios */}
-        <section id="servicios" className="py-16 lg:py-24 scroll-mt-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-2xl">
-              <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
-              <p className="mt-2 text-neutral-700">Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.</p>
-            </div>
+<section id="servicios" className="py-16 lg:py-24 scroll-mt-24">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-2xl">
+      <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
+      <p className="mt-2 text-neutral-700">
+        Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
+      </p>
+    </div>
 
-            <div className="mt-8">
-              {/* ✅ Tabs controlado */}
-              <Tabs value={tab} onValueChange={(v) => setTab(v as "personas" | "empresas")} className="w-full">
-                <TabsList className="grid grid-cols-2 max-w-md relative z-10" /* evita overlays */>
-                  <TabsTrigger value="personas" className="flex items-center gap-2">
-                    <User className="h-4 w-4" /> Personas naturales
-                  </TabsTrigger>
-                  <TabsTrigger value="empresas" className="flex items-center gap-2">
-                    <Building2 className="h-4 w-4" /> Empresas
-                  </TabsTrigger>
-                </TabsList>
+    <div className="mt-8">
+      {/* Usa EXACTAMENTE estos values: "personas" y "empresas" */}
+      <Tabs defaultValue="empresas" className="w-full">
+        {/* z-10 por si algún fondo/overlay estaba bloqueando el click */}
+        <TabsList className="grid grid-cols-2 max-w-md relative z-10">
+          <TabsTrigger value="personas" className="flex items-center gap-2">
+            <User className="h-4 w-4" />
+            Personas naturales
+          </TabsTrigger>
+          <TabsTrigger value="empresas" className="flex items-center gap-2">
+            <Building2 className="h-4 w-4" />
+            Empresas
+          </TabsTrigger>
+        </TabsList>
 
-                <TabsContent value="personas" className="mt-8">
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <Card className="rounded-2xl">
-                      <CardHeader><CardTitle className="text-lg">Plan Ahorro BTC</CardTitle></CardHeader>
-                      <CardContent className="text-sm space-y-2">
-                        <p>Definición de % de ingresos, calendario de compras y custodia personal segura.</p>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Estrategia DCA y umbrales</li>
-                          <li>Configuración de billeteras (cold / multisig)</li>
-                          <li>Checklist de seguridad</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
+        {/* CONTENIDO PERSONAS — value = "personas" */}
+        <TabsContent value="personas" className="mt-8">
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="rounded-2xl">
+              <CardHeader>
+                <CardTitle className="text-lg">Plan Ahorro BTC</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm space-y-2">
+                <p>Definición de % de ingresos, calendario de compras y custodia personal segura.</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Estrategia DCA y umbrales</li>
+                  <li>Configuración de billeteras (cold / multisig)</li>
+                  <li>Checklist de seguridad</li>
+                </ul>
+              </CardContent>
+            </Card>
 
-                    <Card className="rounded-2xl">
-                      <CardHeader><CardTitle className="text-lg">Plan Patrimonial</CardTitle></CardHeader>
-                      <CardContent className="text-sm space-y-2">
-                        <p>Marco de objetivos a 5–10 años integrando BTC como reserva personal.</p>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Gestión de riesgo y liquidez</li>
-                          <li>Plan de herencia y acceso</li>
-                          <li>Rebalanceo anual</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
+            <Card className="rounded-2xl">
+              <CardHeader>
+                <CardTitle className="text-lg">Plan Patrimonial</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm space-y-2">
+                <p>Marco de objetivos a 5–10 años integrando BTC como reserva personal.</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Gestión de riesgo y liquidez</li>
+                  <li>Plan de herencia y acceso</li>
+                  <li>Rebalanceo anual</li>
+                </ul>
+              </CardContent>
+            </Card>
 
-                    <Card className="rounded-2xl">
-                      <CardHeader><CardTitle className="text-lg">Onboarding & Seguridad</CardTitle></CardHeader>
-                      <CardContent className="text-sm space-y-2">
-                        <p>Sesión guiada: compras, transferencias y registros de respaldo.</p>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Buenas prácticas KYC/AML</li>
-                          <li>Pruebas de restauración</li>
-                          <li>Plan de incidentes</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="empresas" className="mt-8">
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <Card className="rounded-2xl">
-                      <CardHeader><CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle></CardHeader>
-                      <CardContent className="text-sm space-y-2">
-                        <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Mapa de riesgos</li>
-                          <li>Ventanas de compra</li>
-                          <li>Propuesta de % inicial</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="rounded-2xl">
-                      <CardHeader><CardTitle className="text-lg">Política BTC en el Balance</CardTitle></CardHeader>
-                      <CardContent className="text-sm space-y-2">
-                        <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Gobernanza & firmas</li>
-                          <li>NIIF (activo intangible) y revelaciones</li>
-                          <li>Procedimientos operativos</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="rounded-2xl">
-                      <CardHeader><CardTitle className="text-lg">Implementación & Seguimiento</CardTitle></CardHeader>
-                      <CardContent className="text-sm space-y-2">
-                        <p>Acompañamiento en la ejecución y reportes trimestrales para directorio.</p>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>KPIs y tablero</li>
-                          <li>Compliance SUNAT</li>
-                          <li>Auditoría interna</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </div>
+            <Card className="rounded-2xl">
+              <CardHeader>
+                <CardTitle className="text-lg">Onboarding & Seguridad</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm space-y-2">
+                <p>Sesión guiada: compras, transferencias y registros de respaldo.</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Buenas prácticas KYC/AML</li>
+                  <li>Pruebas de restauración</li>
+                  <li>Plan de incidentes</li>
+                </ul>
+              </CardContent>
+            </Card>
           </div>
-        </section>
+        </TabsContent>
+
+        {/* CONTENIDO EMPRESAS — value = "empresas" */}
+        <TabsContent value="empresas" className="mt-8">
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="rounded-2xl">
+              <CardHeader>
+                <CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm space-y-2">
+                <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Mapa de riesgos</li>
+                  <li>Ventanas de compra</li>
+                  <li>Propuesta de % inicial</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="rounded-2xl">
+              <CardHeader>
+                <CardTitle className="text-lg">Política BTC en el Balance</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm space-y-2">
+                <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Gobernanza & firmas</li>
+                  <li>NIIF (activo intangible) y revelaciones</li>
+                  <li>Procedimientos operativos</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="rounded-2xl">
+              <CardHeader>
+                <CardTitle className="text-lg">Implementación & Seguimiento</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm space-y-2">
+                <p>Acompañamiento en la ejecución y reportes trimestrales para directorio.</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>KPIs y tablero</li>
+                  <li>Compliance SUNAT</li>
+                  <li>Auditoría interna</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
+  </div>
+</section>
+
 
         {/* Proceso */}
         <section id="proceso" className="py-16 lg:py-24 bg-neutral-50 scroll-mt-24">
