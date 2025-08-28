@@ -1,62 +1,55 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Script from "next/script";
+// app/layout.tsx
+import './globals.css'
+import { headers } from 'next/headers'
+import Script from 'next/script'
+import type { ReactNode } from 'react'
 
-const inter = Inter({ subsets: ["latin"] });
+export default function RootLayout({ children }: { children: ReactNode }) {
+  // El nonce puesto por el middleware
+  const nonce = headers().get('x-nonce') || ''
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://www.21millionspe.com"),
-  title: "21 Millions Enterprises S.A.C.",
-  description:
-    "Tesorería inteligente en Bitcoin para personas y empresas. Estrategia, acompañamiento contable y compliance local.",
-  icons: { icon: "/icon.png", apple: "/icon.png" },
-  alternates: { canonical: "https://www.21millionspe.com" },
-  openGraph: {
-    title: "21 Millions Enterprises S.A.C.",
-    description:
-      "Tesorería inteligente en Bitcoin para personas y empresas.",
-    url: "https://www.21millionspe.com",
-    siteName: "21 Millions",
-    images: [{ url: "/og-21m.png", width: 1200, height: 630 }],
-    locale: "es_PE",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "21 Millions Enterprises S.A.C.",
-    description:
-      "Tesorería inteligente en Bitcoin para personas y empresas.",
-    images: ["/og-21m.png"],
-  },
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className="scroll-smooth">
-      <body className={inter.className}>
+    <html lang="es">
+      <head>
+        {/* Exponemos el nonce también vía meta por si en el futuro lo necesitas en el cliente */}
+        <meta name="csp-nonce" content={nonce} />
+      </head>
+      <body>
         {children}
 
-        {/* Schema.org de la organización */}
-        <Script id="ld-org" type="application/ld+json" strategy="afterInteractive">
+        {/* JSON-LD de FAQ con nonce seguro (antes estaba en page.tsx) */}
+        <Script
+          id="ld-faq"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          nonce={nonce}
+        >
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "21 Millions Enterprises S.A.C.",
-            url: "https://www.21millionspe.com",
-            logo: "https://www.21millionspe.com/icon.png",
-            contactPoint: [
+            "@type": "FAQPage",
+            mainEntity: [
               {
-                "@type": "ContactPoint",
-                contactType: "customer support",
-                email: "contacto@21millions.pe",
-                areaServed: "PE",
-                availableLanguage: ["es"],
+                "@type": "Question",
+                name: "¿Ustedes compran o custodian Bitcoin por mí?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "No. Somos consultores. Diseñamos la estrategia y te guiamos para que compres y custodies tú (o tu empresa) con buenas prácticas y controles internos."
+                }
               },
-            ],
+              {
+                "@type": "Question",
+                name: "¿Cómo se refleja en la contabilidad (NIIF)?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text:
+                    "En general, como activo intangible, con revelaciones y políticas de valuación/impairment documentadas. Entregamos formatos y anexos de soporte para auditoría."
+                }
+              }
+            ]
           })}
         </Script>
       </body>
     </html>
-  );
+  )
 }
