@@ -38,22 +38,34 @@ const securityHeaders = [
 ]
 
 const nextConfig = {
-  reactStrictMode: true,
-
-  // Añadimos cabeceras a todas las rutas
   async headers() {
     return [
       {
-        source: '/:path*',
-        headers: securityHeaders,
+        source: "/(.*)",
+        headers: [
+          {
+            // Relajamos script-src para permitir inline de Next y que hidrate.
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self' https: data: blob:",
+              "script-src 'self' 'unsafe-inline' https:",
+              "style-src 'self' 'unsafe-inline' https:",
+              "img-src 'self' data: https: blob:",
+              "font-src 'self' https: data:",
+              "connect-src 'self' https:",
+              "frame-ancestors 'self'",
+              "base-uri 'self'",
+              "form-action 'self' https:"
+            ].join("; "),
+          },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
       },
-    ]
+    ];
   },
+};
 
-  // Si algún día cargas imágenes externas, agrégalas aquí (o usa remotePatterns)
-  images: {
-    // domains: ['tu-cdn.com'],
-  },
-}
-
-export default nextConfig
+export default nextConfig;

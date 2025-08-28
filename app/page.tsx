@@ -566,22 +566,7 @@ const activateTab =
         </section>
 
         {/* Footer (único) */}
-        <footer className="py-10 border-t border-neutral-200 bg-white relative z-[10]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="text-sm text-neutral-600">
-              © {new Date().getFullYear()} 21 Millions Enterprises S.A.C. — Todos los derechos reservados.
-            </div>
-            <div className="flex items-center gap-6 text-sm">
-              <a href="/legal/terminos" className="hover:opacity-80">Términos y Condiciones</a>
-              <a href="/privacidad" className="hover:opacity-80">Política de Privacidad</a>
-              <a href="/cookies" className="hover:opacity-80">Política de Cookies</a>
-              <a href="#contacto" className="hover:opacity-80">Contacto</a>
-            </div>
-          </div>
-          <div className="mt-3 text-center text-xs text-neutral-500 px-4">
-            RUC 2060XXXXXXX · 21 Millions Enterprises S.A.C. · Lima, Perú. No brindamos asesoría de inversión. Servicio de consultoría y acompañamiento.
-          </div>
-        </footer>
+        
       </div>
 
       {/* Schema.org FAQPage */}
