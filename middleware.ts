@@ -2,15 +2,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// Genera un nonce base64 usando Web Crypto (Edge runtime)
-function createNonce(): string {
-  const bytes = new Uint8Array(16);
-  crypto.getRandomValues(bytes);
-  let bin = "";
-  bytes.forEach((b) => (bin += String.fromCharCode(b)));
-  return btoa(bin); // base64
-}
-
 export function middleware(req: NextRequest) {
   // --- Redirección a www.21millionspe.com ---
   const url = req.nextUrl.clone();
@@ -23,18 +14,20 @@ export function middleware(req: NextRequest) {
   // --- Respuesta base ---
   const res = NextResponse.next();
 
-  // --- Nonce único por request (lo dejamos por si luego lo usas) ---
-  const nonce = createNonce();
-  res.headers.set("x-nonce", nonce);
+  // *** CSP: sin nonce y sin 'strict-dynamic' ***
+  // Permitimos inline (que Next inyecta) y blob: para el runtime.
+  // Añadimos script-src-elem y script-src-attr para ser explícitos.
+  const scriptSrc =
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: blob:";
+  const scriptSrcElem =
+    "script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' https: blob:";
+  const scriptSrcAttr = "script-src-attr 'self' 'unsafe-inline'";
 
-  // --- CSP (relajada SOLO en script-src para evitar errores rojos) ---
-  // Nota:
-  // - 'unsafe-inline' habilita los scripts inline que Next inyecta (runtime/__NEXT_DATA__).
-  // - 'strict-dynamic' lo puedes mantener o quitar; aquí lo dejamos.
-  // - añadimos blob: por compatibilidad con el runtime.
   const csp = [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}' 'strict-dynamic' https: blob:`,
+    scriptSrc,
+    scriptSrcElem,
+    scriptSrcAttr,
     "style-src 'self' 'unsafe-inline' https:",
     "img-src 'self' data: https:",
     "font-src 'self' data: https:",
