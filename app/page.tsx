@@ -45,22 +45,14 @@ export default function Landing21Millions() {
   // Tabs controlados (Servicios)
   const [tab, setTab] = useState<"personas" | "empresas">("empresas");
 
-  // Helper accesible para teclado/touch/click (tipado correcto)
-const activateTab =
-  (name: "personas" | "empresas") =>
-  (
-    e:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.TouchEvent<HTMLButtonElement>
-      | React.PointerEvent<HTMLButtonElement>
-  ) => {
-    e.stopPropagation();
-    // Algunos eventos (Enter/Espacio) traen preventDefault
-    if ("preventDefault" in e) e.preventDefault();
-    setTab(name);
-  };
-
+  // Helper de tabs — SOLO click + teclado
+  const activateTab =
+    (name: "personas" | "empresas") =>
+    (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setTab(name);
+    };
 
   return (
     <>
@@ -234,7 +226,7 @@ const activateTab =
           </div>
         </section>
 
-        {/* Trust strip (no fixed, sin overlays) */}
+        {/* Trust strip */}
         <section className="relative z-[10] border-y border-neutral-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
             {["Política de tesorería", "Análisis de flujo de caja", "Modelo contable NIIF", "Compliance SUNAT"].map(
@@ -250,7 +242,7 @@ const activateTab =
         {/* =================== SERVICIOS =================== */}
         <section
           id="servicios"
-          className="relative z-[20] py-16 lg:py-24 scroll-mt-24"
+          className="relative z-[30] py-16 lg:py-24 scroll-mt-24"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
@@ -265,21 +257,20 @@ const activateTab =
               </div>
             </div>
 
-            {/* Tabs: z alto, isolate y handlers para desktop/móvil */}
-            <div className="mt-6 relative z-[30] isolate max-w-md">
+            {/* Tabs simplificados */}
+            <div className="mt-6 relative z-[40] isolate max-w-md">
               <div className="inline-flex w-full rounded-xl border bg-neutral-50 p-1 shadow-sm">
                 <button
                   id="tab-personas"
                   type="button"
-                  style={{ touchAction: "manipulation" }}
-                  onPointerDown={activateTab("personas")}
-                  onTouchEnd={activateTab("personas")}
+                  role="tab"
+                  aria-selected={tab === "personas"}
+                  aria-controls="panel-personas"
                   onClick={activateTab("personas")}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") activateTab("personas")(e);
                   }}
-                  aria-pressed={tab === "personas"}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full select-none ${
                     tab === "personas"
                       ? "bg-white shadow font-medium text-neutral-800"
                       : "text-neutral-600 hover:text-neutral-800"
@@ -292,15 +283,14 @@ const activateTab =
                 <button
                   id="tab-empresas"
                   type="button"
-                  style={{ touchAction: "manipulation" }}
-                  onPointerDown={activateTab("empresas")}
-                  onTouchEnd={activateTab("empresas")}
+                  role="tab"
+                  aria-selected={tab === "empresas"}
+                  aria-controls="panel-empresas"
                   onClick={activateTab("empresas")}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") activateTab("empresas")(e);
                   }}
-                  aria-pressed={tab === "empresas"}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full select-none ${
                     tab === "empresas"
                       ? "bg-white shadow font-medium text-neutral-800"
                       : "text-neutral-600 hover:text-neutral-800"
@@ -314,7 +304,7 @@ const activateTab =
 
             {/* Personas */}
             {tab === "personas" && (
-              <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-[25]">
+              <div id="panel-personas" className="mt-8 grid md:grid-cols-3 gap-6 relative z-[35]">
                 <Card className="rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Asesoría Personal</CardTitle>
@@ -346,7 +336,7 @@ const activateTab =
 
             {/* Empresas */}
             {tab === "empresas" && (
-              <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-[25]">
+              <div id="panel-empresas" className="mt-8 grid md:grid-cols-3 gap-6 relative z-[35]">
                 <Card className="rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle>
@@ -564,9 +554,6 @@ const activateTab =
             </div>
           </div>
         </section>
-
-        {/* Footer (único) */}
-        
       </div>
 
       {/* Schema.org FAQPage */}
