@@ -20,14 +20,19 @@ const csp = [
 
 // Cabeceras de seguridad
 const securityHeaders = [
-  // Activa HSTS. Si todo funciona en HTTPS por semanas, puedes enviar a hstspreload.org
-  { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains; preload' },
+  // 🔐 HSTS (fuerza HTTPS en todo el dominio y subdominios; apto para preload)
+  { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+
   { key: 'X-Content-Type-Options', value: 'nosniff' },
+
   // Doble protección anti-iframe (legacy + CSP frame-ancestors)
   { key: 'X-Frame-Options', value: 'DENY' },
+
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+
   // Deshabilita permisos del navegador que no usas
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+
   // Política CSP
   { key: 'Content-Security-Policy', value: csp },
 ]
