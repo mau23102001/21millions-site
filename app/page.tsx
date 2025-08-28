@@ -34,10 +34,9 @@ const EMAIL = "21millionspe@gmail.com";
 const WHATSAPP_LINK =
   "https://wa.me/51999999999?text=Hola%20quiero%20agendar%20un%20diagnostico";
 
+/** ===== Página ===== */
 export default function Landing21Millions() {
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  // 👇 Estado local para el switch Personas / Empresas (reemplaza Tabs)
   const [activeTab, setActiveTab] = useState<"personas" | "empresas">("empresas");
 
   return (
@@ -143,12 +142,12 @@ export default function Landing21Millions() {
 
         {/* Hero */}
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-yellow-50 via-white to-white" />
+          <div className="absolute inset-0 bg-gradient-to-b from-yellow-50 via-white to-white" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative">
             <motion.div
-              initial={{ opacity: 1, y: 0 }} // visible para evitar glitch
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.6 }}
               className="grid lg:grid-cols-12 gap-10 items-center"
             >
               <div className="lg:col-span-7">
@@ -228,8 +227,8 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* Servicios — ahora con estado local, sin Tabs */}
-        <section id="servicios" className="py-16 lg:py-24 scroll-mt-24">
+        {/* ===================== SERVICIOS (Actualizado) ===================== */}
+        <section id="servicios" className="py-16 lg:py-24 scroll-mt-24 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
@@ -238,30 +237,37 @@ export default function Landing21Millions() {
               </p>
             </div>
 
-            {/* Botones del switch */}
-            <div className="mt-8 inline-flex rounded-xl border bg-neutral-50 p-1">
+            {/* Botones del switch con z-index alto para evitar elementos que tapen el click */}
+            <div
+              role="tablist"
+              aria-label="Tipo de cliente"
+              className="mt-8 inline-flex rounded-xl border bg-neutral-50 p-1 relative z-20"
+            >
               <button
                 type="button"
-                onClick={() => setActiveTab("personas")}
+                role="tab"
+                aria-selected={activeTab === "personas"}
+                onClick={() => { console.log("click personas"); setActiveTab("personas"); }}
                 className={`px-4 py-2 rounded-lg text-sm inline-flex items-center gap-2 transition ${
                   activeTab === "personas"
                     ? "bg-white shadow font-medium text-neutral-800"
                     : "text-neutral-600 hover:text-neutral-800"
                 }`}
-                aria-pressed={activeTab === "personas"}
               >
                 <User className="h-4 w-4" />
                 Personas naturales
               </button>
+
               <button
                 type="button"
-                onClick={() => setActiveTab("empresas")}
+                role="tab"
+                aria-selected={activeTab === "empresas"}
+                onClick={() => { console.log("click empresas"); setActiveTab("empresas"); }}
                 className={`px-4 py-2 rounded-lg text-sm inline-flex items-center gap-2 transition ${
                   activeTab === "empresas"
                     ? "bg-white shadow font-medium text-neutral-800"
                     : "text-neutral-600 hover:text-neutral-800"
                 }`}
-                aria-pressed={activeTab === "empresas"}
               >
                 <Building2 className="h-4 w-4" />
                 Empresas
@@ -270,7 +276,7 @@ export default function Landing21Millions() {
 
             {/* Contenido dinámico */}
             {activeTab === "personas" ? (
-              <div className="mt-8 grid md:grid-cols-3 gap-6">
+              <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-10">
                 <Card className="rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Plan Ahorro BTC</CardTitle>
@@ -314,7 +320,7 @@ export default function Landing21Millions() {
                 </Card>
               </div>
             ) : (
-              <div className="mt-8 grid md:grid-cols-3 gap-6">
+              <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-10">
                 <Card className="rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle>
@@ -360,6 +366,7 @@ export default function Landing21Millions() {
             )}
           </div>
         </section>
+        {/* =================== FIN SERVICIOS =================== */}
 
         {/* Proceso */}
         <section id="proceso" className="py-16 lg:py-24 bg-neutral-50 scroll-mt-24">
@@ -578,4 +585,3 @@ export default function Landing21Millions() {
     </>
   );
 }
-
