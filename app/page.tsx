@@ -26,15 +26,14 @@ import {
   MapPin,
 } from "lucide-react";
 
-import { motion } from "framer-motion";
-
+// ❗ Sin framer-motion para evitar que el Hero quede invisible
 export const dynamic = "force-dynamic";
-
 
 /** ===== Datos de contacto (ajusta por los reales) ===== */
 const EMAIL = "21millionspe@gmail.com";
-const WHATSAPP_LINK =
-  "https://wa.me/51999999999?text=Hola%20quiero%20agendar%20un%20diagnostico";
+const PHONE = "+51 999 999 999";    // cómo se muestra
+const PHONE_E164 = "51999999999";   // solo dígitos (para tel:/WhatsApp)
+const WHATSAPP_LINK = `https://wa.me/${PHONE_E164}?text=Hola%20quiero%20agendar%20un%20diagnostico`;
 
 /** ===== Página ===== */
 export default function Landing21Millions() {
@@ -141,85 +140,79 @@ export default function Landing21Millions() {
           )}
         </header>
 
-       {/* Hero */}
-<section className="relative overflow-hidden">
-  {/* Fondo detrás */}
-  <div className="absolute inset-0 -z-10 bg-gradient-to-b from-yellow-50 via-white to-white" />
+        {/* Hero (estable, sin motion) */}
+        <section className="relative overflow-hidden">
+          {/* Fondo detrás */}
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-yellow-50 via-white to-white" />
 
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10">
-    <motion.div
-      /** Arranca visible para evitar parpadeo o quedarse oculto si falla la hidratación */
-      initial={{ opacity: 1, y: 0 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
-      className="grid lg:grid-cols-12 gap-10 items-center"
-    >
-      {/* Texto principal */}
-      <div className="lg:col-span-7">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
-          Tesorería inteligente en Bitcoin para{" "}
-          <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">personas</span> y{" "}
-          <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">empresas</span>.
-        </h1>
-        <p className="mt-6 text-lg text-neutral-700 max-w-2xl">
-          Convertimos caja ociosa en una política de reserva de valor con enfoque de largo plazo.
-          Diseño de estrategia, acompañamiento contable y compliance local.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <a href="#contacto">
-            <Button size="lg" className="bg-brand hover:bg-brand-dark text-black">
-              Agenda tu diagnóstico gratuito
-            </Button>
-          </a>
-          <a href="#servicios" className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80">
-            Ver servicios <ArrowRight className="h-4 w-4" />
-          </a>
-        </div>
-        <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-neutral-600">
-          <div className="flex items-center gap-2">
-            <Shield className="h-4 w-4" /> Enfoque no-custodia / sin trading por cuenta del cliente
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10">
+            <div className="grid lg:grid-cols-12 gap-10 items-center">
+              {/* Texto principal */}
+              <div className="lg:col-span-7">
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+                  Tesorería inteligente en Bitcoin para{" "}
+                  <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">personas</span> y{" "}
+                  <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">empresas</span>.
+                </h1>
+                <p className="mt-6 text-lg text-neutral-700 max-w-2xl">
+                  Convertimos caja ociosa en una política de reserva de valor con enfoque de largo plazo. Diseño de
+                  estrategia, acompañamiento contable y compliance local.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a href="#contacto">
+                    <Button size="lg" className="bg-brand hover:bg-brand-dark text-black">
+                      Agenda tu diagnóstico gratuito
+                    </Button>
+                  </a>
+                  <a
+                    href="#servicios"
+                    className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80"
+                  >
+                    Ver servicios <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
+                <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-neutral-600">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-4 w-4" /> Enfoque no-custodia / sin trading por cuenta del cliente
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FileCheck2 className="h-4 w-4" /> Metodología documentada y auditable
+                  </div>
+                </div>
+              </div>
+
+              {/* Tarjeta lateral */}
+              <div className="lg:col-span-5">
+                <Card className="shadow-xl rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Caso rápido: Asignación 5% de caja</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-sm">
+                    <div className="flex items-center justify-between">
+                      <span>Caja disponible</span>
+                      <strong>S/ 4,000,000</strong>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Asignación inicial</span>
+                      <strong>5% (S/ 200,000)</strong>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Estrategia</span>
+                      <span>DCAs trimestrales + rebalance</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Horizonte</span>
+                      <span>36–60 meses</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-neutral-600">
+                      <CheckCircle className="h-4 w-4" /> Política de inversión aprobada por comité de tesorería
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <FileCheck2 className="h-4 w-4" /> Metodología documentada y auditable
-          </div>
-        </div>
-      </div>
-
-      {/* Tarjeta lateral */}
-      <div className="lg:col-span-5">
-        <Card className="shadow-xl rounded-2xl">
-          <CardHeader>
-            <CardTitle className="text-xl">Caso rápido: Asignación 5% de caja</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm">
-            <div className="flex items-center justify-between">
-              <span>Caja disponible</span>
-              <strong>S/ 4,000,000</strong>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Asignación inicial</span>
-              <strong>5% (S/ 200,000)</strong>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Estrategia</span>
-              <span>DCAs trimestrales + rebalance</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Horizonte</span>
-              <span>36–60 meses</span>
-            </div>
-            <div className="flex items-center gap-2 text-neutral-600">
-              <CheckCircle className="h-4 w-4" /> Política de inversión aprobada por comité de tesorería
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </motion.div>
-  </div>
-</section>
-
-
+        </section>
 
         {/* Trust strip */}
         <section className="border-y border-neutral-200">
@@ -495,10 +488,10 @@ export default function Landing21Millions() {
                 </p>
                 <div className="mt-6 space-y-2 text-sm text-neutral-300">
                   <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4" /> {EMAIL}
+                    <Mail className="h-4 w-4" /> <a href={`mailto:${EMAIL}`} className="hover:underline">{EMAIL}</a>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4" /> +51 999 999 999
+                    <Phone className="h-4 w-4" /> <a href={`tel:${PHONE_E164}`} className="hover:underline">{PHONE}</a>
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4" /> Lima, Perú
@@ -511,6 +504,7 @@ export default function Landing21Millions() {
                     <CardTitle className="text-lg">Déjanos tus datos</CardTitle>
                   </CardHeader>
                   <CardContent>
+                    {/* Reemplaza la URL por tu endpoint real de Formspree */}
                     <form method="POST" action="https://formspree.io/f/your-id" className="space-y-4">
                       <input name="name" required placeholder="Nombre y apellido" className="w-full border rounded-xl px-4 py-3" />
                       <input name="email" type="email" required placeholder="Correo" className="w-full border rounded-xl px-4 py-3" />
