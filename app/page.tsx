@@ -45,15 +45,6 @@ export default function Landing21Millions() {
   // Tabs controlados (Servicios)
   const [tab, setTab] = useState<"personas" | "empresas">("empresas");
 
-  // Helper de tabs — SOLO click + teclado
-  const activateTab =
-    (name: "personas" | "empresas") =>
-    (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setTab(name);
-    };
-
   return (
     <>
       <div className="min-h-screen bg-white text-neutral-900">
@@ -131,7 +122,7 @@ export default function Landing21Millions() {
             </div>
           </div>
 
-          {/* Menú móvil (cubre pantalla para recibir clics) */}
+          {/* Menú móvil */}
           {mobileOpen && (
             <nav
               id="mobile-menu"
@@ -240,170 +231,168 @@ export default function Landing21Millions() {
         </section>
 
         {/* =================== SERVICIOS =================== */}
-<section
-  id="servicios"
-  className="relative z-[300] isolate py-16 lg:py-24 scroll-mt-24"
->
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-auto">
-    <div className="max-w-2xl">
-      <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
-      <p className="mt-2 text-neutral-700">
-        Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
-      </p>
-
-      {/* Chip de depuración: puedes borrar esto si quieres */}
-      <div className="mt-3 inline-flex items-center gap-2 text-xs px-2 py-1 rounded-full border bg-neutral-50">
-        <span className="opacity-70">tab actual:</span>
-        <span className="font-mono">{tab}</span>
-      </div>
-    </div>
-
-    {/* Tabs (accesibles y sin handlers raros) */}
-    <div className="mt-6 max-w-md">
-      <div
-        role="tablist"
-        aria-label="Cambiar tipo de cliente"
-        className="inline-flex w-full rounded-xl border bg-neutral-50 p-1 shadow-sm"
-      >
-        <button
-          id="tab-personas"
-          type="button"
-          role="tab"
-          aria-selected={tab === "personas"}
-          aria-controls="panel-personas"
-          onClick={() => setTab("personas")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              setTab("personas");
-            }
-          }}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full cursor-pointer select-none ${
-            tab === "personas"
-              ? "bg-white shadow font-medium text-neutral-800"
-              : "text-neutral-600 hover:text-neutral-800"
-          }`}
+        <section
+          id="servicios"
+          className="relative z-[300] isolate py-16 lg:py-24 scroll-mt-24"
         >
-          <User className="h-4 w-4" />
-          Personas naturales
-        </button>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-auto">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
+              <p className="mt-2 text-neutral-700">
+                Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
+              </p>
 
-        <button
-          id="tab-empresas"
-          type="button"
-          role="tab"
-          aria-selected={tab === "empresas"}
-          aria-controls="panel-empresas"
-          onClick={() => setTab("empresas")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              setTab("empresas");
-            }
-          }}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full cursor-pointer select-none ${
-            tab === "empresas"
-              ? "bg-white shadow font-medium text-neutral-800"
-              : "text-neutral-600 hover:text-neutral-800"
-          }`}
-        >
-          <Building2 className="h-4 w-4" />
-          Empresas
-        </button>
-      </div>
-    </div>
+              {/* Chip de depuración (opcional) */}
+              <div className="mt-3 inline-flex items-center gap-2 text-xs px-2 py-1 rounded-full border bg-neutral-50">
+                <span className="opacity-70">tab actual:</span>
+                <span className="font-mono">{tab}</span>
+              </div>
+            </div>
 
-    {/* Panel PERSONAS */}
-    <div
-      id="panel-personas"
-      role="tabpanel"
-      aria-labelledby="tab-personas"
-      hidden={tab !== "personas"}
-      className="mt-8 grid md:grid-cols-3 gap-6"
-    >
-      <Card className="rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-lg">Asesoría Personal</CardTitle>
-        </CardHeader>
-        <CardContent className="text-sm space-y-2">
-          <p>Planificación financiera y tesorería adaptada a personas naturales.</p>
-        </CardContent>
-      </Card>
+            {/* Tabs accesibles */}
+            <div className="mt-6 max-w-md">
+              <div
+                role="tablist"
+                aria-label="Cambiar tipo de cliente"
+                className="inline-flex w-full rounded-xl border bg-neutral-50 p-1 shadow-sm"
+              >
+                <button
+                  id="tab-personas"
+                  type="button"
+                  role="tab"
+                  aria-selected={tab === "personas"}
+                  aria-controls="panel-personas"
+                  onClick={() => setTab("personas")}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setTab("personas");
+                    }
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full cursor-pointer select-none ${
+                    tab === "personas"
+                      ? "bg-white shadow font-medium text-neutral-800"
+                      : "text-neutral-600 hover:text-neutral-800"
+                  }`}
+                >
+                  <User className="h-4 w-4" />
+                  Personas naturales
+                </button>
 
-      <Card className="rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-lg">Ahorro en BTC</CardTitle>
-        </CardHeader>
-        <CardContent className="text-sm space-y-2">
-          <p>Estrategias de ahorro a largo plazo con Bitcoin como reserva de valor.</p>
-        </CardContent>
-      </Card>
+                <button
+                  id="tab-empresas"
+                  type="button"
+                  role="tab"
+                  aria-selected={tab === "empresas"}
+                  aria-controls="panel-empresas"
+                  onClick={() => setTab("empresas")}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setTab("empresas");
+                    }
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full cursor-pointer select-none ${
+                    tab === "empresas"
+                      ? "bg-white shadow font-medium text-neutral-800"
+                      : "text-neutral-600 hover:text-neutral-800"
+                  }`}
+                >
+                  <Building2 className="h-4 w-4" />
+                  Empresas
+                </button>
+              </div>
+            </div>
 
-      <Card className="rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-lg">Seguridad y Custodia</CardTitle>
-        </CardHeader>
-        <CardContent className="text-sm space-y-2">
-          <p>Recomendaciones sobre almacenamiento seguro y control personal.</p>
-        </CardContent>
-      </Card>
-    </div>
+            {/* Panel PERSONAS */}
+            <div
+              id="panel-personas"
+              role="tabpanel"
+              aria-labelledby="tab-personas"
+              hidden={tab !== "personas"}
+              className="mt-8 grid md:grid-cols-3 gap-6"
+            >
+              <Card className="rounded-2xl">
+                <CardHeader>
+                  <CardTitle className="text-lg">Asesoría Personal</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-2">
+                  <p>Planificación financiera y tesorería adaptada a personas naturales.</p>
+                </CardContent>
+              </Card>
 
-    {/* Panel EMPRESAS */}
-    <div
-      id="panel-empresas"
-      role="tabpanel"
-      aria-labelledby="tab-empresas"
-      hidden={tab !== "empresas"}
-      className="mt-8 grid md:grid-cols-3 gap-6"
-    >
-      <Card className="rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle>
-        </CardHeader>
-        <CardContent className="text-sm space-y-2">
-          <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Mapa de riesgos</li>
-            <li>Ventanas de compra</li>
-            <li>Propuesta de % inicial</li>
-          </ul>
-        </CardContent>
-      </Card>
+              <Card className="rounded-2xl">
+                <CardHeader>
+                  <CardTitle className="text-lg">Ahorro en BTC</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-2">
+                  <p>Estrategias de ahorro a largo plazo con Bitcoin como reserva de valor.</p>
+                </CardContent>
+              </Card>
 
-      <Card className="rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-lg">Política BTC en el Balance</CardTitle>
-        </CardHeader>
-        <CardContent className="text-sm space-y-2">
-          <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Gobernanza & firmas</li>
-            <li>NIIF (activo intangible) y revelaciones</li>
-            <li>Procedimientos operativos</li>
-          </ul>
-        </CardContent>
-      </Card>
+              <Card className="rounded-2xl">
+                <CardHeader>
+                  <CardTitle className="text-lg">Seguridad y Custodia</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-2">
+                  <p>Recomendaciones sobre almacenamiento seguro y control personal.</p>
+                </CardContent>
+              </Card>
+            </div>
 
-      <Card className="rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-lg">Implementación & Seguimiento</CardTitle>
-        </CardHeader>
-        <CardContent className="text-sm space-y-2">
-          <p>Acompañamiento en la ejecución y reportes trimestrales para directorio.</p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>KPIs y tablero</li>
-            <li>Compliance SUNAT</li>
-            <li>Auditoría interna</li>
-          </ul>
-        </CardContent>
-      </Card>
-    </div>
-  </div>
-</section>
-{/* ================= FIN SERVICIOS ================= */}
+            {/* Panel EMPRESAS */}
+            <div
+              id="panel-empresas"
+              role="tabpanel"
+              aria-labelledby="tab-empresas"
+              hidden={tab !== "empresas"}
+              className="mt-8 grid md:grid-cols-3 gap-6"
+            >
+              <Card className="rounded-2xl">
+                <CardHeader>
+                  <CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-2">
+                  <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>Mapa de riesgos</li>
+                    <li>Ventanas de compra</li>
+                    <li>Propuesta de % inicial</li>
+                  </ul>
+                </CardContent>
+              </Card>
 
+              <Card className="rounded-2xl">
+                <CardHeader>
+                  <CardTitle className="text-lg">Política BTC en el Balance</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-2">
+                  <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>Gobernanza & firmas</li>
+                    <li>NIIF (activo intangible) y revelaciones</li>
+                    <li>Procedimientos operativos</li>
+                  </ul>
+                </CardContent>
+              </Card>
 
+              <Card className="rounded-2xl">
+                <CardHeader>
+                  <CardTitle className="text-lg">Implementación & Seguimiento</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-2">
+                  <p>Acompañamiento en la ejecución y reportes trimestrales para directorio.</p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>KPIs y tablero</li>
+                    <li>Compliance SUNAT</li>
+                    <li>Auditoría interna</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+        {/* ================= FIN SERVICIOS ================= */}
 
         {/* Proceso */}
         <section id="proceso" className="py-16 lg:py-24 bg-neutral-50 scroll-mt-24 relative z-[10]">
