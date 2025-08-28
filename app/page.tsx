@@ -286,64 +286,45 @@ export default function Landing21Millions() {
               </div>
             </div>
 
-            {/* Tabs: z-50, isolate y handlers reforzados */}
-            <div className="mt-6 relative z-[90] isolate max-w-md">
-              <div className="inline-flex w-full rounded-xl border bg-neutral-50 p-1 shadow-sm">
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setTab("personas");
-                  }}
-                  onTouchEnd={(e) => {
-                    e.stopPropagation();
-                    setTab("personas");
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setTab("personas");
-                    }
-                  }}
-                  aria-pressed={tab === "personas"}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
-                    tab === "personas"
-                      ? "bg-white shadow font-medium text-neutral-800"
-                      : "text-neutral-600 hover:text-neutral-800"
-                  }`}
-                >
-                  <User className="h-4 w-4" />
-                  Personas naturales
-                </button>
+            {/* Tabs: z alto, isolate y handlers reforzados */}
+<div className="mt-6 relative z-[200] isolate max-w-md">
+  <div className="inline-flex w-full rounded-xl border bg-neutral-50 p-1 shadow-sm">
+    <button
+      type="button"
+      data-testid="tab-personas"
+      style={{ touchAction: "manipulation" }}
+      onPointerDown={(e) => { e.stopPropagation(); setTab("personas"); console.log("pointerdown->personas"); }}
+      onTouchEnd={(e) => { e.stopPropagation(); setTab("personas"); console.log("touchend->personas"); }}
+      onClick={(e) => { e.stopPropagation(); setTab("personas"); console.log("click->personas"); }}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setTab("personas"); console.log("key->personas"); }}}
+      aria-pressed={tab === "personas"}
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
+        tab === "personas" ? "bg-white shadow font-medium text-neutral-800" : "text-neutral-600 hover:text-neutral-800"
+      }`}
+    >
+      <User className="h-4 w-4" />
+      Personas naturales
+    </button>
 
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setTab("empresas");
-                  }}
-                  onTouchEnd={(e) => {
-                    e.stopPropagation();
-                    setTab("empresas");
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setTab("empresas");
-                    }
-                  }}
-                  aria-pressed={tab === "empresas"}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
-                    tab === "empresas"
-                      ? "bg-white shadow font-medium text-neutral-800"
-                      : "text-neutral-600 hover:text-neutral-800"
-                  }`}
-                >
-                  <Building2 className="h-4 w-4" />
-                  Empresas
-                </button>
-              </div>
-            </div>
+    <button
+      type="button"
+      data-testid="tab-empresas"
+      style={{ touchAction: "manipulation" }}
+      onPointerDown={(e) => { e.stopPropagation(); setTab("empresas"); console.log("pointerdown->empresas"); }}
+      onTouchEnd={(e) => { e.stopPropagation(); setTab("empresas"); console.log("touchend->empresas"); }}
+      onClick={(e) => { e.stopPropagation(); setTab("empresas"); console.log("click->empresas"); }}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setTab("empresas"); console.log("key->empresas"); }}}
+      aria-pressed={tab === "empresas"}
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
+        tab === "empresas" ? "bg-white shadow font-medium text-neutral-800" : "text-neutral-600 hover:text-neutral-800"
+      }`}
+    >
+      <Building2 className="h-4 w-4" />
+      Empresas
+    </button>
+  </div>
+</div>
+
 
             {/* Personas */}
             {tab === "personas" && (
