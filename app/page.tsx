@@ -32,7 +32,7 @@ export const dynamic = "force-dynamic";
 
 
 /** ===== Datos de contacto (ajusta por los reales) ===== */
-const EMAIL = "contacto@21millions.pe";
+const EMAIL = "21millionspe@gmail.com";
 const WHATSAPP_LINK =
   "https://wa.me/51999999999?text=Hola%20quiero%20agendar%20un%20diagnostico";
 
