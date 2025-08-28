@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Script from "next/script";
 
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
@@ -40,6 +41,7 @@ const WHATSAPP_LINK =
 
 export default function Landing21Millions() {
   const [mobileOpen, setMobileOpen] = useState(false);
+
   // Tabs controlados (Servicios)
   const [tab, setTab] = useState<"personas" | "empresas">("empresas");
 
@@ -69,10 +71,18 @@ export default function Landing21Millions() {
               aria-label="Navegación principal"
               className="hidden md:flex items-center gap-6 text-sm"
             >
-              <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
-              <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
-              <a href="#niif" className="hover:text-neutral-700">NIIF &amp; SUNAT</a>
-              <a href="#faq" className="hover:text-neutral-700">FAQ</a>
+              <a href="#servicios" className="hover:text-neutral-700">
+                Servicios
+              </a>
+              <a href="#proceso" className="hover:text-neutral-700">
+                Cómo trabajamos
+              </a>
+              <a href="#niif" className="hover:text-neutral-700">
+                NIIF &amp; SUNAT
+              </a>
+              <a href="#faq" className="hover:text-neutral-700">
+                FAQ
+              </a>
             </nav>
 
             {/* Derecha: CTA */}
@@ -99,7 +109,13 @@ export default function Landing21Millions() {
                 onClick={() => setMobileOpen((v) => !v)}
               >
                 <span className="sr-only">Abrir menú</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
@@ -222,25 +238,23 @@ export default function Landing21Millions() {
               <p className="mt-2 text-neutral-700">
                 Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
               </p>
-
-              {/* Chip de diagnóstico: ver el estado en vivo */}
-              <div className="mt-3 inline-flex items-center gap-2 text-xs px-2 py-1 rounded-full border bg-neutral-50">
-                <span className="opacity-70">tab actual:</span>
-                <span className="font-mono">{tab}</span>
-              </div>
             </div>
 
-            {/* Tabs: z-alto, isolate y handlers reforzados */}
+            {/* Tabs: z alto, isolate y handlers para desktop/móvil */}
             <div className="mt-6 relative z-[200] isolate max-w-md">
               <div className="inline-flex w-full rounded-xl border bg-neutral-50 p-1 shadow-sm">
                 <button
                   type="button"
-                  data-testid="tab-personas"
                   style={{ touchAction: "manipulation" }}
                   onPointerDown={(e) => { e.stopPropagation(); setTab("personas"); }}
                   onTouchEnd={(e) => { e.stopPropagation(); setTab("personas"); }}
                   onClick={(e) => { e.stopPropagation(); setTab("personas"); }}
-                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setTab("personas"); }}}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setTab("personas");
+                    }
+                  }}
                   aria-pressed={tab === "personas"}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
                     tab === "personas" ? "bg-white shadow font-medium text-neutral-800" : "text-neutral-600 hover:text-neutral-800"
@@ -252,12 +266,16 @@ export default function Landing21Millions() {
 
                 <button
                   type="button"
-                  data-testid="tab-empresas"
                   style={{ touchAction: "manipulation" }}
                   onPointerDown={(e) => { e.stopPropagation(); setTab("empresas"); }}
                   onTouchEnd={(e) => { e.stopPropagation(); setTab("empresas"); }}
                   onClick={(e) => { e.stopPropagation(); setTab("empresas"); }}
-                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setTab("empresas"); }}}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setTab("empresas");
+                    }
+                  }}
                   aria-pressed={tab === "empresas"}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
                     tab === "empresas" ? "bg-white shadow font-medium text-neutral-800" : "text-neutral-600 hover:text-neutral-800"
@@ -273,21 +291,27 @@ export default function Landing21Millions() {
             {tab === "personas" && (
               <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-[85]">
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Asesoría Personal</CardTitle></CardHeader>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Asesoría Personal</CardTitle>
+                  </CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <p>Planificación financiera y tesorería adaptada a personas naturales.</p>
                   </CardContent>
                 </Card>
 
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Ahorro en BTC</CardTitle></CardHeader>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Ahorro en BTC</CardTitle>
+                  </CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <p>Estrategias de ahorro a largo plazo con Bitcoin como reserva de valor.</p>
                   </CardContent>
                 </Card>
 
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Seguridad y Custodia</CardTitle></CardHeader>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Seguridad y Custodia</CardTitle>
+                  </CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <p>Recomendaciones sobre almacenamiento seguro y control personal.</p>
                   </CardContent>
@@ -299,7 +323,9 @@ export default function Landing21Millions() {
             {tab === "empresas" && (
               <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-[85]">
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle></CardHeader>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle>
+                  </CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
                     <ul className="list-disc pl-5 space-y-1">
@@ -311,7 +337,9 @@ export default function Landing21Millions() {
                 </Card>
 
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Política BTC en el Balance</CardTitle></CardHeader>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Política BTC en el Balance</CardTitle>
+                  </CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
                     <ul className="list-disc pl-5 space-y-1">
@@ -323,7 +351,9 @@ export default function Landing21Millions() {
                 </Card>
 
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Implementación & Seguimiento</CardTitle></CardHeader>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Implementación & Seguimiento</CardTitle>
+                  </CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <p>Acompañamiento en la ejecución y reportes trimestrales para directorio.</p>
                     <ul className="list-disc pl-5 space-y-1">
@@ -348,10 +378,26 @@ export default function Landing21Millions() {
             </div>
             <div className="mt-10 grid md:grid-cols-4 gap-6">
               {[
-                { icon: Briefcase, title: "1. Diagnóstico", desc: "Balance, flujos y caja ociosa. Identificamos % prudente de inicio." },
-                { icon: LineChart, title: "2. Estrategia", desc: "Calendario de compras, rebalance y umbrales; sin trading especulativo." },
-                { icon: Shield, title: "3. Custodia", desc: "Arquitectura de seguridad: cold/multisig, roles y procedimientos." },
-                { icon: FileCheck2, title: "4. Reportes", desc: "Estados trimestrales, revelaciones NIIF y anexo de compliance." },
+                {
+                  icon: Briefcase,
+                  title: "1. Diagnóstico",
+                  desc: "Balance, flujos y caja ociosa. Identificamos % prudente de inicio.",
+                },
+                {
+                  icon: LineChart,
+                  title: "2. Estrategia",
+                  desc: "Calendario de compras, rebalance y umbrales; sin trading especulativo.",
+                },
+                {
+                  icon: Shield,
+                  title: "3. Custodia",
+                  desc: "Arquitectura de seguridad: cold/multisig, roles y procedimientos.",
+                },
+                {
+                  icon: FileCheck2,
+                  title: "4. Reportes",
+                  desc: "Estados trimestrales, revelaciones NIIF y anexo de compliance.",
+                },
               ].map(({ icon: Icon, title, desc }, i) => (
                 <Card key={i} className="rounded-2xl">
                   <CardHeader className="flex flex-row items-center gap-3">
@@ -390,10 +436,18 @@ export default function Landing21Millions() {
                     <CardTitle className="text-lg">Documentos incluidos</CardTitle>
                   </CardHeader>
                   <CardContent className="text-sm space-y-2">
-                    <div className="flex items-center gap-2"><Scale className="h-4 w-4" /> Política de Tesorería BTC</div>
-                    <div className="flex items-center gap-2"><FileCheck2 className="h-4 w-4" /> Minuta para comité de tesorería</div>
-                    <div className="flex items-center gap-2"><Banknote className="h-4 w-4" /> Modelo de asientos contables (ejemplo)</div>
-                    <div className="flex items-center gap-2"><Globe className="h-4 w-4" /> Procedimiento operativo estándar (POE)</div>
+                    <div className="flex items-center gap-2">
+                      <Scale className="h-4 w-4" /> Política de Tesorería BTC
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <FileCheck2 className="h-4 w-4" /> Minuta para comité de tesorería
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Banknote className="h-4 w-4" /> Modelo de asientos contables (ejemplo)
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Globe className="h-4 w-4" /> Procedimiento operativo estándar (POE)
+                    </div>
                   </CardContent>
                 </Card>
               </div>
@@ -450,21 +504,31 @@ export default function Landing21Millions() {
                   Conversemos 30 minutos para entender tu situación y proponerte una ruta de acción clara.
                 </p>
                 <div className="mt-6 space-y-2 text-sm text-neutral-300">
-                  <div className="flex items-center gap-2"><Mail className="h-4 w-4" /> {EMAIL}</div>
-                  <div className="flex items-center gap-2"><Phone className="h-4 w-4" /> +51 999 999 999</div>
-                  <div className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Lima, Perú</div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="h-4 w-4" /> {EMAIL}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone className="h-4 w-4" /> +51 999 999 999
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4" /> Lima, Perú
+                  </div>
                 </div>
               </div>
               <div className="lg:col-span-5">
                 <Card className="bg-white text-neutral-900 rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Déjanos tus datos</CardTitle></CardHeader>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Déjanos tus datos</CardTitle>
+                  </CardHeader>
                   <CardContent>
                     <form method="POST" action="https://formspree.io/f/your-id" className="space-y-4">
                       <input name="name" required placeholder="Nombre y apellido" className="w-full border rounded-xl px-4 py-3" />
                       <input name="email" type="email" required placeholder="Correo" className="w-full border rounded-xl px-4 py-3" />
                       <input name="company" placeholder="Empresa (opcional)" className="w-full border rounded-xl px-4 py-3" />
                       <textarea name="message" rows={4} placeholder="Cuéntanos breve tu caso" className="w-full border rounded-xl px-4 py-3" />
-                      <Button type="submit" className="w-full bg-brand hover:bg-brand-dark text-black">Enviar</Button>
+                      <Button type="submit" className="w-full bg-brand hover:bg-brand-dark text-black">
+                        Enviar
+                      </Button>
                     </form>
                     <p className="mt-3 text-xs text-neutral-500">Al enviar aceptas nuestra política de privacidad.</p>
                   </CardContent>
@@ -491,6 +555,34 @@ export default function Landing21Millions() {
           </div>
         </footer>
       </div>
+
+      {/* Schema.org FAQPage */}
+      <Script id="ld-faq" type="application/ld+json" strategy="afterInteractive">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "¿Ustedes compran o custodian Bitcoin por mí?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text:
+                  "No. Somos consultores. Diseñamos la estrategia y te guiamos para que compres y custodies tú (o tu empresa) con buenas prácticas y controles internos.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "¿Cómo se refleja en la contabilidad (NIIF)?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text:
+                  "En general, como activo intangible, con revelaciones y políticas de valuación/impairment documentadas. Entregamos formatos y anexos de soporte para auditoría.",
+              },
+            },
+          ],
+        })}
+      </Script>
     </>
   );
 }
