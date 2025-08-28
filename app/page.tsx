@@ -45,11 +45,28 @@ export default function Landing21Millions() {
   // Tabs controlados (Servicios)
   const [tab, setTab] = useState<"personas" | "empresas">("empresas");
 
+  // Helper accesible para teclado/touch/click (tipado correcto)
+const activateTab =
+  (name: "personas" | "empresas") =>
+  (
+    e:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.TouchEvent<HTMLButtonElement>
+      | React.PointerEvent<HTMLButtonElement>
+  ) => {
+    e.stopPropagation();
+    // Algunos eventos (Enter/Espacio) traen preventDefault
+    if ("preventDefault" in e) e.preventDefault();
+    setTab(name);
+  };
+
+
   return (
     <>
       <div className="min-h-screen bg-white text-neutral-900">
         {/* Header */}
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-neutral-200">
+        <header className="sticky top-0 z-[60] bg-white/80 backdrop-blur border-b border-neutral-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             {/* Izquierda: logo + nombre */}
             <div className="flex items-center gap-3">
@@ -126,7 +143,7 @@ export default function Landing21Millions() {
           {mobileOpen && (
             <nav
               id="mobile-menu"
-              className="md:hidden fixed inset-0 z-[60] bg-white border-t"
+              className="md:hidden fixed inset-0 z-[70] bg-white border-t"
               onClick={() => setMobileOpen(false)}
             >
               <div className="px-4 py-6 flex flex-col gap-4 text-base">
@@ -145,7 +162,7 @@ export default function Landing21Millions() {
           {/* Fondo detrás (no captura clics) */}
           <div className="absolute inset-0 -z-10 pointer-events-none bg-gradient-to-b from-yellow-50 via-white to-white" />
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-[10]">
             <motion.div
               initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -217,8 +234,8 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* Trust strip */}
-        <section className="border-y border-neutral-200">
+        {/* Trust strip (no fixed, sin overlays) */}
+        <section className="relative z-[10] border-y border-neutral-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
             {["Política de tesorería", "Análisis de flujo de caja", "Modelo contable NIIF", "Compliance SUNAT"].map(
               (t, i) => (
@@ -231,33 +248,41 @@ export default function Landing21Millions() {
         </section>
 
         {/* =================== SERVICIOS =================== */}
-        <section id="servicios" className="py-16 lg:py-24 scroll-mt-24 relative z-[80] pointer-events-auto">
+        <section
+          id="servicios"
+          className="relative z-[20] py-16 lg:py-24 scroll-mt-24"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
               <p className="mt-2 text-neutral-700">
                 Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
               </p>
+              {/* CHIP de diagnóstico (debug visual del tab) */}
+              <div className="mt-3 inline-flex items-center gap-2 text-xs px-2 py-1 rounded-full border bg-neutral-50">
+                <span className="opacity-70">tab actual:</span>
+                <span className="font-mono">{tab}</span>
+              </div>
             </div>
 
             {/* Tabs: z alto, isolate y handlers para desktop/móvil */}
-            <div className="mt-6 relative z-[200] isolate max-w-md">
+            <div className="mt-6 relative z-[30] isolate max-w-md">
               <div className="inline-flex w-full rounded-xl border bg-neutral-50 p-1 shadow-sm">
                 <button
+                  id="tab-personas"
                   type="button"
                   style={{ touchAction: "manipulation" }}
-                  onPointerDown={(e) => { e.stopPropagation(); setTab("personas"); }}
-                  onTouchEnd={(e) => { e.stopPropagation(); setTab("personas"); }}
-                  onClick={(e) => { e.stopPropagation(); setTab("personas"); }}
+                  onPointerDown={activateTab("personas")}
+                  onTouchEnd={activateTab("personas")}
+                  onClick={activateTab("personas")}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setTab("personas");
-                    }
+                    if (e.key === "Enter" || e.key === " ") activateTab("personas")(e);
                   }}
                   aria-pressed={tab === "personas"}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
-                    tab === "personas" ? "bg-white shadow font-medium text-neutral-800" : "text-neutral-600 hover:text-neutral-800"
+                    tab === "personas"
+                      ? "bg-white shadow font-medium text-neutral-800"
+                      : "text-neutral-600 hover:text-neutral-800"
                   }`}
                 >
                   <User className="h-4 w-4" />
@@ -265,20 +290,20 @@ export default function Landing21Millions() {
                 </button>
 
                 <button
+                  id="tab-empresas"
                   type="button"
                   style={{ touchAction: "manipulation" }}
-                  onPointerDown={(e) => { e.stopPropagation(); setTab("empresas"); }}
-                  onTouchEnd={(e) => { e.stopPropagation(); setTab("empresas"); }}
-                  onClick={(e) => { e.stopPropagation(); setTab("empresas"); }}
+                  onPointerDown={activateTab("empresas")}
+                  onTouchEnd={activateTab("empresas")}
+                  onClick={activateTab("empresas")}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setTab("empresas");
-                    }
+                    if (e.key === "Enter" || e.key === " ") activateTab("empresas")(e);
                   }}
                   aria-pressed={tab === "empresas"}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
-                    tab === "empresas" ? "bg-white shadow font-medium text-neutral-800" : "text-neutral-600 hover:text-neutral-800"
+                    tab === "empresas"
+                      ? "bg-white shadow font-medium text-neutral-800"
+                      : "text-neutral-600 hover:text-neutral-800"
                   }`}
                 >
                   <Building2 className="h-4 w-4" />
@@ -289,7 +314,7 @@ export default function Landing21Millions() {
 
             {/* Personas */}
             {tab === "personas" && (
-              <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-[85]">
+              <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-[25]">
                 <Card className="rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Asesoría Personal</CardTitle>
@@ -321,7 +346,7 @@ export default function Landing21Millions() {
 
             {/* Empresas */}
             {tab === "empresas" && (
-              <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-[85]">
+              <div className="mt-8 grid md:grid-cols-3 gap-6 relative z-[25]">
                 <Card className="rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle>
@@ -370,11 +395,13 @@ export default function Landing21Millions() {
         {/* ================= FIN SERVICIOS ================= */}
 
         {/* Proceso */}
-        <section id="proceso" className="py-16 lg:py-24 bg-neutral-50 scroll-mt-24">
+        <section id="proceso" className="py-16 lg:py-24 bg-neutral-50 scroll-mt-24 relative z-[10]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold tracking-tight">Cómo trabajamos</h2>
-              <p className="mt-2 text-neutral-700">Ruta clara, documentada y auditable de principio a fin.</p>
+              <p className="mt-2 text-neutral-700">
+                Ruta clara, documentada y auditable de principio a fin.
+              </p>
             </div>
             <div className="mt-10 grid md:grid-cols-4 gap-6">
               {[
@@ -414,7 +441,7 @@ export default function Landing21Millions() {
         </section>
 
         {/* NIIF & SUNAT */}
-        <section id="niif" className="py-16 lg:py-24 scroll-mt-24">
+        <section id="niif" className="py-16 lg:py-24 scroll-mt-24 relative z-[10]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-12 gap-10">
               <div className="lg:col-span-6">
@@ -456,7 +483,7 @@ export default function Landing21Millions() {
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="py-16 lg:py-24 scroll-mt-24">
+        <section id="faq" className="py-16 lg:py-24 scroll-mt-24 relative z-[10]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold tracking-tight">Preguntas frecuentes</h2>
@@ -495,7 +522,7 @@ export default function Landing21Millions() {
         </section>
 
         {/* CTA Contacto */}
-        <section id="contacto" className="py-16 lg:py-24 bg-neutral-900 text-white scroll-mt-24">
+        <section id="contacto" className="py-16 lg:py-24 bg-neutral-900 text-white scroll-mt-24 relative z-[10]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7">
@@ -530,16 +557,31 @@ export default function Landing21Millions() {
                         Enviar
                       </Button>
                     </form>
-                    <p className="mt-3 text-xs text-neutral-400">
-                      Al enviar aceptas nuestra política de privacidad.
-                    </p>
+                    <p className="mt-3 text-xs text-neutral-500">Al enviar aceptas nuestra política de privacidad.</p>
                   </CardContent>
                 </Card>
               </div>
             </div>
           </div>
         </section>
-        {/* (El footer ya NO va aquí: vive en app/layout.tsx) */}
+
+        {/* Footer (único) */}
+        <footer className="py-10 border-t border-neutral-200 bg-white relative z-[10]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-sm text-neutral-600">
+              © {new Date().getFullYear()} 21 Millions Enterprises S.A.C. — Todos los derechos reservados.
+            </div>
+            <div className="flex items-center gap-6 text-sm">
+              <a href="/legal/terminos" className="hover:opacity-80">Términos y Condiciones</a>
+              <a href="/privacidad" className="hover:opacity-80">Política de Privacidad</a>
+              <a href="/cookies" className="hover:opacity-80">Política de Cookies</a>
+              <a href="#contacto" className="hover:opacity-80">Contacto</a>
+            </div>
+          </div>
+          <div className="mt-3 text-center text-xs text-neutral-500 px-4">
+            RUC 2060XXXXXXX · 21 Millions Enterprises S.A.C. · Lima, Perú. No brindamos asesoría de inversión. Servicio de consultoría y acompañamiento.
+          </div>
+        </footer>
       </div>
 
       {/* Schema.org FAQPage */}
