@@ -36,13 +36,15 @@ type TabsContextType = {
 const TabsContext = createContext<TabsContextType | null>(null);
 
 export function Tabs(props: TabsProps) {
-  const isControlled = 'value' in props && typeof props.onValueChange === 'function';
+  const isControlled =
+    'value' in props && typeof (props as TabsControlledProps).onValueChange === 'function';
 
   const [inner, setInner] = useState<TabValue>(
-    !isControlled ? props.defaultValue : (props.value as TabValue)
+    !isControlled ? (props as TabsUncontrolledProps).defaultValue : (props as TabsControlledProps).value
   );
 
   const value = isControlled ? (props as TabsControlledProps).value : inner;
+
   const setValue = (v: TabValue) => {
     if (isControlled) {
       (props as TabsControlledProps).onValueChange(v);
@@ -98,10 +100,12 @@ export function TabsTrigger({
       aria-selected={active}
       aria-controls={`tab-panel-${value}`}
       onClick={() => ctx.setValue(value)}
-      className={`px-4 py-2 rounded-lg text-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 ${
-        active
-          ? 'bg-white shadow font-medium text-neutral-800'
-          : 'text-neutral-600 hover:text-neutral-800'
+      onTouchStart={() => ctx.setValue(value)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') ctx.setValue(value);
+      }}
+      className={`px-4 py-2 rounded-lg text-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 pointer-events-auto cursor-pointer select-none ${
+        active ? 'bg-white shadow font-medium text-neutral-800' : 'text-neutral-600 hover:text-neutral-800'
       } ${className}`}
     >
       {children}

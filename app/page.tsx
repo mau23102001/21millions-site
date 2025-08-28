@@ -29,12 +29,11 @@ import { motion } from "framer-motion";
 
 export const dynamic = "force-dynamic";
 
-/** ===== Datos de contacto (ajusta por los reales) ===== */
+/** ===== Datos de contacto ===== */
 const EMAIL = "21millionspe@gmail.com";
 const WHATSAPP_LINK =
   "https://wa.me/51999999999?text=Hola%20quiero%20agendar%20un%20diagnostico";
 
-/** ===== Página ===== */
 export default function Landing21Millions() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -118,7 +117,7 @@ export default function Landing21Millions() {
             </div>
           </div>
 
-          {/* Menú móvil (toda la pantalla para recibir clics) */}
+          {/* Menú móvil (cubre pantalla para recibir clics) */}
           {mobileOpen && (
             <nav
               id="mobile-menu"
@@ -227,7 +226,8 @@ export default function Landing21Millions() {
         </section>
 
         {/* =================== SERVICIOS =================== */}
-        <section id="servicios" className="py-16 lg:py-24 scroll-mt-24 relative">
+        {/* (A) z-40 en la sección para garantizar que no quede nada por encima */}
+        <section id="servicios" className="py-16 lg:py-24 scroll-mt-24 relative z-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
@@ -236,13 +236,19 @@ export default function Landing21Millions() {
               </p>
             </div>
 
-            {/* Tabs controlados — aislados para que nada los tape */}
-            <div className="mt-6 relative z-20 isolate max-w-md">
+            {/* (B) contenedor de tabs con z-50 e isolate */}
+            <div className="mt-6 relative z-50 isolate max-w-md">
               <div className="inline-flex w-full rounded-xl border bg-neutral-50 p-1">
+                {/* (C) Botón Personas reforzado */}
                 <button
                   type="button"
                   onClick={() => setTab("personas")}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto ${
+                  onTouchStart={() => setTab("personas")}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") setTab("personas");
+                  }}
+                  aria-pressed={tab === "personas"}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
                     tab === "personas"
                       ? "bg-white shadow font-medium text-neutral-800"
                       : "text-neutral-600 hover:text-neutral-800"
@@ -251,10 +257,17 @@ export default function Landing21Millions() {
                   <User className="h-4 w-4" />
                   Personas naturales
                 </button>
+
+                {/* (C) Botón Empresas reforzado */}
                 <button
                   type="button"
                   onClick={() => setTab("empresas")}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto ${
+                  onTouchStart={() => setTab("empresas")}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") setTab("empresas");
+                  }}
+                  aria-pressed={tab === "empresas"}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full pointer-events-auto cursor-pointer select-none ${
                     tab === "empresas"
                       ? "bg-white shadow font-medium text-neutral-800"
                       : "text-neutral-600 hover:text-neutral-800"
@@ -535,7 +548,7 @@ export default function Landing21Millions() {
         </footer>
       </div>
 
-      {/* Schema.org FAQPage (se mantiene igual) */}
+      {/* Schema.org FAQPage */}
       <Script id="ld-faq" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify({
           "@context": "https://schema.org",
