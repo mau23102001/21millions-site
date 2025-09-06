@@ -14,7 +14,7 @@ import {
 
 import {
   Shield,
-  LineChart,
+  LineChart as LineChartIcon,
   Briefcase,
   Building2,
   User,
@@ -30,12 +30,87 @@ import {
 
 import { motion } from "framer-motion";
 
+// recharts (alias para no chocar con LineChart de lucide)
+import {
+  LineChart as RLineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
+
 export const dynamic = "force-dynamic";
 
 /** ===== Datos de contacto ===== */
 const EMAIL = "21millionspe@gmail.com";
 const WHATSAPP_LINK =
   "https://wa.me/51999999999?text=Hola%20quiero%20agendar%20un%20diagnostico";
+
+/** ===== Datos para el gráfico (aprox + proyección ilustrativa) ===== */
+const btcSeries = [
+  { year: 2010, real: 0.05,   projection: null },
+  { year: 2013, real: 100,    projection: null },
+  { year: 2017, real: 19000,  projection: null },
+  { year: 2020, real: 29000,  projection: null },
+  { year: 2021, real: 69000,  projection: null },
+  { year: 2022, real: 16500,  projection: null },
+  { year: 2024, real: 73000,  projection: null },
+  { year: 2025, real: 95000,  projection: 95000 }, // enlace hacia la proyección
+  { year: 2030, real: null,   projection: 250000 },
+  { year: 2035, real: null,   projection: 750000 },
+  { year: 2040, real: null,   projection: 1500000 },
+  { year: 2045, real: null,   projection: 3000000 },
+];
+
+function GrowthChart() {
+  const fmtMoney = (n: number) =>
+    "$" + Number(n).toLocaleString("en-US", { maximumFractionDigits: 0 });
+
+  return (
+    <div className="rounded-2xl border bg-white p-4">
+      <div className="mb-3 flex items-baseline justify-between">
+        <h3 className="text-lg font-semibold">Evolución de Bitcoin</h3>
+        <span className="text-xs text-neutral-500">Valores aprox. · escala log</span>
+      </div>
+
+      <div className="h-72">
+        <ResponsiveContainer width="100%" height="100%">
+          <RLineChart data={btcSeries} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="year" />
+            <YAxis
+              scale="log"
+              domain={["dataMin", "auto"]}
+              tickFormatter={(v) => fmtMoney(Number(v))}
+            />
+            <Tooltip
+              formatter={(v) => [fmtMoney(Number(v)), "Precio"]}
+              labelFormatter={(l) => `Año ${l}`}
+            />
+            <Legend />
+            <Line type="monotone" dataKey="real" name="Histórico" dot={false} isAnimationActive />
+            <Line
+              type="monotone"
+              dataKey="projection"
+              name="Proyección (ilustrativa)"
+              strokeDasharray="6 6"
+              dot={false}
+              isAnimationActive
+            />
+          </RLineChart>
+        </ResponsiveContainer>
+      </div>
+
+      <p className="mt-2 text-xs text-neutral-500">
+        La línea discontinua es una proyección ilustrativa inspirada en tesis de adopción (estilo MicroStrategy).
+        No es recomendación de inversión.
+      </p>
+    </div>
+  );
+}
 
 export default function Landing21Millions() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -45,7 +120,7 @@ export default function Landing21Millions() {
 
   return (
     <>
-      <div className="min-h-screen bg-white text-neutral-900">
+      <div className="min-h-screen bg-white text-neutral-900 font-sans">
         {/* Header */}
         <header className="sticky top-0 z-[60] bg-white/80 backdrop-blur border-b border-neutral-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -71,6 +146,7 @@ export default function Landing21Millions() {
             >
               <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
               <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
+              <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
               <a href="#niif" className="hover:text-neutral-700">NIIF &amp; SUNAT</a>
               <a href="#faq" className="hover:text-neutral-700">FAQ</a>
             </nav>
@@ -114,6 +190,7 @@ export default function Landing21Millions() {
               <div className="px-4 py-6 flex flex-col gap-4 text-base">
                 <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
                 <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
+                <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
                 <a href="#niif" className="hover:text-neutral-700">NIIF &amp; SUNAT</a>
                 <a href="#faq" className="hover:text-neutral-700">FAQ</a>
                 <a href="#contacto" className="hover:text-neutral-700">Contacto</a>
@@ -174,21 +251,29 @@ export default function Landing21Millions() {
                       height={40}
                       className="rounded-full"
                     />
-                    <CardTitle className="text-xl">¿Qué es Bitcoin?</CardTitle>
+                    <CardTitle className="text-xl tracking-tight">¿Qué es Bitcoin?</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3 text-sm text-neutral-700">
+                  <CardContent className="space-y-3 text-sm text-neutral-700 font-sans">
                     <p>
                       Bitcoin <strong>no es una empresa</strong>. Es una{" "}
-                      <strong>tecnología digital independiente</strong>, abierta, más escaza cada 4 años y
+                      <strong>tecnología digital independiente</strong>, abierta, más <strong>escasa</strong> cada 4 años y
                       descentralizada.
                     </p>
                     <p>
                       Cualquier persona puede adquirir y resguardar Bitcoin como{" "}
                       <strong>reserva de valor global</strong>.
                     </p>
-                    <div className="flex flex-col items-center gap-1 text-neutral-600 text-xs mt-2">
-                      <div>🌍 Emisión limitada: Solo existen 21 millones de monedas Bitcoin</div>
-                      <div>🔒 Seguridad respaldada por su red global</div>
+
+                    {/* Reemplazo de emojis por íconos para mantener la misma tipografía */}
+                    <div className="flex flex-col items-start gap-2 text-neutral-600 text-xs mt-2">
+                      <div className="flex items-center gap-2">
+                        <Globe className="h-3.5 w-3.5" />
+                        Emisión limitada: solo existen 21 millones de Bitcoin
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Shield className="h-3.5 w-3.5" />
+                        Seguridad respaldada por su red global
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -358,7 +443,7 @@ export default function Landing21Millions() {
             <div className="mt-10 grid md:grid-cols-4 gap-6">
               {[
                 { icon: Briefcase, title: "1. Diagnóstico", desc: "Balance, flujos y caja ociosa. Identificamos % prudente de inicio." },
-                { icon: LineChart, title: "2. Estrategia", desc: "Calendario de compras, rebalance y umbrales; sin trading especulativo." },
+                { icon: LineChartIcon, title: "2. Estrategia", desc: "Calendario de compras, rebalance y umbrales; sin trading especulativo." },
                 { icon: Shield, title: "3. Custodia", desc: "Arquitectura de seguridad: cold/multisig, roles y procedimientos." },
                 { icon: FileCheck2, title: "4. Reportes", desc: "Estados trimestrales, revelaciones NIIF y anexo de compliance." },
               ].map(({ icon: Icon, title, desc }, i) => (
@@ -372,6 +457,30 @@ export default function Landing21Millions() {
                   <CardContent className="text-sm text-neutral-700">{desc}</CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* BTC en perspectiva (Gráfico) */}
+        <section id="btc-en-perspectiva" className="py-16 lg:py-24 scroll-mt-24 relative z-[10]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-12 gap-10 items-start">
+              <div className="lg:col-span-5">
+                <h2 className="text-3xl font-bold tracking-tight">Bitcoin en perspectiva</h2>
+                <p className="mt-2 text-neutral-700">
+                  Oferta limitada (21 millones), halvings cada ~4 años y un mercado global 24/7 han
+                  impulsado un crecimiento de largo plazo. La escala log ayuda a ver la tendencia.
+                </p>
+                <ul className="mt-4 text-sm text-neutral-700 list-disc pl-5">
+                  <li>Oferta fija de 21M</li>
+                  <li>Red descentralizada y abierta</li>
+                  <li>Custodia propia y liquidez global</li>
+                </ul>
+              </div>
+
+              <div className="lg:col-span-7">
+                <GrowthChart />
+              </div>
             </div>
           </div>
         </section>
