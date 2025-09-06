@@ -58,7 +58,7 @@ const btcSeries = [
   { year: 2021, real: 69000,  projection: null },
   { year: 2022, real: 16500,  projection: null },
   { year: 2024, real: 73000,  projection: null },
-  { year: 2025, real: 95000,  projection: 95000 }, // enlace hacia la proyección
+  { year: 2025, real: 95000,  projection: 95000 }, // desde aquí dibujamos proyección
   { year: 2030, real: null,   projection: 250000 },
   { year: 2035, real: null,   projection: 750000 },
   { year: 2040, real: null,   projection: 1500000 },
@@ -78,12 +78,14 @@ function GrowthChart() {
 
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
-          <RLineChart data={btcSeries} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
+          <RLineChart data={btcSeries} margin={{ top: 8, right: 12, bottom: 8, left: 12 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="year" />
             <YAxis
               scale="log"
               domain={["dataMin", "auto"]}
+              allowDecimals={false}
+              width={84} // asegura que se vea el "1" en 1,000,000
               tickFormatter={(v) => fmtMoney(Number(v))}
             />
             <Tooltip
@@ -105,8 +107,8 @@ function GrowthChart() {
       </div>
 
       <p className="mt-2 text-xs text-neutral-500">
-        La línea discontinua es una proyección ilustrativa inspirada en tesis de adopción (estilo MicroStrategy).
-        No es recomendación de inversión.
+        La línea discontinua es una proyección ilustrativa inspirada en la tesis de adopción de
+        Michael Saylor (MicroStrategy). No es recomendación de inversión.
       </p>
     </div>
   );
@@ -114,8 +116,6 @@ function GrowthChart() {
 
 export default function Landing21Millions() {
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  // Tabs controlados (Servicios)
   const [tab, setTab] = useState<"personas" | "empresas">("empresas");
 
   return (
@@ -147,21 +147,21 @@ export default function Landing21Millions() {
               <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
               <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
               <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
-              <a href="#niif" className="hover:text-neutral-700">NIIF &amp; SUNAT</a>
+              <a href="#niif" className="hover:text-neutral-700">Contabilidad &amp; Cumplimiento</a>
               <a href="#faq" className="hover:text-neutral-700">FAQ</a>
             </nav>
 
             {/* Derecha: CTA */}
             <div className="flex items-center gap-3">
               <a
-                aria-label="Agendar diagnóstico por WhatsApp"
+                aria-label="Agendar reunión por WhatsApp"
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noopener"
                 className="hidden sm:inline-block"
               >
-                <Button className="bg-brand hover:bg-brand-dark text-black">
-                  Agenda diagnóstico
+                <Button className="bg-amber-500 hover:bg-amber-600 text-black">
+                  Agenda reunión
                 </Button>
               </a>
               <a href={`mailto:${EMAIL}`} className="sr-only">Escríbenos por email</a>
@@ -191,7 +191,7 @@ export default function Landing21Millions() {
                 <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
                 <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
                 <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
-                <a href="#niif" className="hover:text-neutral-700">NIIF &amp; SUNAT</a>
+                <a href="#niif" className="hover:text-neutral-700">Contabilidad &amp; Cumplimiento</a>
                 <a href="#faq" className="hover:text-neutral-700">FAQ</a>
                 <a href="#contacto" className="hover:text-neutral-700">Contacto</a>
               </div>
@@ -201,7 +201,7 @@ export default function Landing21Millions() {
 
         {/* Hero */}
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 -z-10 pointer-events-none bg-gradient-to-b from-yellow-50 via-white to-white" />
+          <div className="absolute inset-0 -z-10 pointer-events-none bg-gradient-to-b from-amber-50 via-white to-white" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-[10]">
             <motion.div
               initial={{ opacity: 1, y: 0 }}
@@ -213,17 +213,17 @@ export default function Landing21Millions() {
               <div className="lg:col-span-7">
                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
                   Tesorería inteligente en Bitcoin para{" "}
-                  <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">personas</span> y{" "}
-                  <span className="underline decoration-yellow-400 decoration-8 underline-offset-4">empresas</span>.
+                  <span className="underline decoration-amber-500 decoration-8 underline-offset-4">personas</span> y{" "}
+                  <span className="underline decoration-amber-500 decoration-8 underline-offset-4">empresas</span>.
                 </h1>
                 <p className="mt-6 text-lg text-neutral-700 max-w-2xl">
-                  Convertimos caja ociosa en una política de reserva de valor con enfoque de largo plazo.
-                  Diseño de estrategia, acompañamiento contable y compliance local.
+                  Te ayudamos a convertir caja ociosa en una estrategia de ahorro/tesorería de largo plazo,
+                  con reglas claras, seguridad y cumplimiento local.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a href="#contacto">
-                    <Button size="lg" className="bg-brand hover:bg-brand-dark text-black">
-                      Agenda tu diagnóstico gratuito
+                    <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-black">
+                      Agenda una reunión gratuita
                     </Button>
                   </a>
                   <a href="#servicios" className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80">
@@ -245,7 +245,7 @@ export default function Landing21Millions() {
                 <Card className="shadow-xl rounded-2xl text-center">
                   <CardHeader className="flex flex-col items-center gap-3">
                     <Image
-                      src="/btc-icon.png"      // coloca /public/btc-icon.png
+                      src="/btc-icon.png"
                       alt="Bitcoin"
                       width={40}
                       height={40}
@@ -253,18 +253,16 @@ export default function Landing21Millions() {
                     />
                     <CardTitle className="text-xl tracking-tight">¿Qué es Bitcoin?</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3 text-sm text-neutral-700 font-sans">
+                  <CardContent className="space-y-3 text-sm text-neutral-700">
                     <p>
                       Bitcoin <strong>no es una empresa</strong>. Es una{" "}
-                      <strong>tecnología digital independiente</strong>, abierta, más <strong>escasa</strong> cada 4 años y
-                      descentralizada.
+                      <strong>tecnología digital independiente</strong>, abierta,{" "}
+                      más <strong>escasa</strong> cada 4 años y descentralizada.
                     </p>
                     <p>
                       Cualquier persona puede adquirir y resguardar Bitcoin como{" "}
                       <strong>reserva de valor global</strong>.
                     </p>
-
-                    {/* Reemplazo de emojis por íconos para mantener la misma tipografía */}
                     <div className="flex flex-col items-start gap-2 text-neutral-600 text-xs mt-2">
                       <div className="flex items-center gap-2">
                         <Globe className="h-3.5 w-3.5" />
@@ -285,13 +283,16 @@ export default function Landing21Millions() {
         {/* Trust strip */}
         <section className="relative z-[10] border-y border-neutral-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
-            {["Política de tesorería", "Análisis de flujo de caja", "Modelo contable NIIF", "Compliance SUNAT"].map(
-              (t, i) => (
-                <div key={i} className="text-center text-sm text-neutral-600">
-                  {t}
-                </div>
-              )
-            )}
+            {[
+              "Política de tesorería",
+              "Caja mínima operativa y excedente",
+              "Modelo contable (NIIF Perú)",
+              "Tus Bitcoin · custodia propia",
+            ].map((t, i) => (
+              <div key={i} className="text-center text-sm text-neutral-600">
+                {t}
+              </div>
+            ))}
           </div>
         </section>
 
@@ -395,6 +396,8 @@ export default function Landing21Millions() {
                   <CardContent className="text-sm space-y-2">
                     <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
                     <ul className="list-disc pl-5 space-y-1">
+                      <li>Caja mínima operativa</li>
+                      <li>Caja excedente</li>
                       <li>Mapa de riesgos</li>
                       <li>Ventanas de compra</li>
                       <li>Propuesta de % inicial</li>
@@ -407,7 +410,7 @@ export default function Landing21Millions() {
                   <CardContent className="text-sm space-y-2">
                     <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>Gobernanza & firmas</li>
+                      <li>Gobernanza &amp; firmas</li>
                       <li>NIIF (activo intangible) y revelaciones</li>
                       <li>Procedimientos operativos</li>
                     </ul>
@@ -415,12 +418,14 @@ export default function Landing21Millions() {
                 </Card>
 
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Implementación & Seguimiento</CardTitle></CardHeader>
+                  <CardHeader><CardTitle className="text-lg">Implementación &amp; Seguimiento</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
-                    <p>Acompañamiento en la ejecución y reportes trimestrales para directorio.</p>
+                    <p>
+                      Acompañamiento en la ejecución con **custodia en manos del cliente** y reportes trimestrales para directorio.
+                    </p>
                     <ul className="list-disc pl-5 space-y-1">
                       <li>KPIs y tablero</li>
-                      <li>Compliance SUNAT</li>
+                      <li>Compliance local</li>
                       <li>Auditoría interna</li>
                     </ul>
                   </CardContent>
@@ -437,7 +442,7 @@ export default function Landing21Millions() {
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold tracking-tight">Cómo trabajamos</h2>
               <p className="mt-2 text-neutral-700">
-                Ruta clara, documentada y auditable de principio a fin.
+                Mismo flujo para personas y empresas: ruta clara, documentada y auditable de principio a fin.
               </p>
             </div>
             <div className="mt-10 grid md:grid-cols-4 gap-6">
@@ -485,21 +490,20 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* NIIF & SUNAT */}
+        {/* Contabilidad & Cumplimiento */}
         <section id="niif" className="py-16 lg:py-24 scroll-mt-24 relative z-[10]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-12 gap-10">
               <div className="lg:col-span-6">
-                <h2 className="text-3xl font-bold tracking-tight">NIIF & SUNAT sin dolor</h2>
+                <h2 className="text-3xl font-bold tracking-tight">Contabilidad &amp; Cumplimiento</h2>
                 <p className="mt-3 text-neutral-700">
-                  Tratamos a Bitcoin como activo intangible (NIIF), con notas de revelación y políticas de
-                  depreciación/impairment cuando corresponda. Documentamos el criterio y el procedimiento contable para
-                  auditorías.
+                  Tratamos a Bitcoin como activo intangible (NIIF) con notas de revelación y políticas
+                  internas alineadas a auditorías y a la documentación notarial de tu organización.
                 </p>
                 <ul className="mt-6 space-y-2 text-sm text-neutral-700 list-disc pl-5">
-                  <li>Guía de registro contable y anexos</li>
+                  <li>Modelo contable NIIF y anexos</li>
                   <li>Revelaciones y políticas internas</li>
-                  <li>Checklist tributario SUNAT</li>
+                  <li>Soporte documental para comité / notaría</li>
                 </ul>
               </div>
               <div className="lg:col-span-6">
@@ -569,7 +573,7 @@ export default function Landing21Millions() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7">
-                <h2 className="text-3xl font-bold tracking-tight">Agenda un diagnóstico gratuito</h2>
+                <h2 className="text-3xl font-bold tracking-tight">Agenda una reunión gratuita</h2>
                 <p className="mt-3 text-neutral-300 max-w-2xl">
                   Conversemos 30 minutos para entender tu situación y proponerte una ruta de acción clara.
                 </p>
@@ -594,7 +598,7 @@ export default function Landing21Millions() {
                       <input name="email" type="email" required placeholder="Correo" className="w-full border rounded-xl px-4 py-3" />
                       <input name="company" placeholder="Empresa (opcional)" className="w-full border rounded-xl px-4 py-3" />
                       <textarea name="message" rows={4} placeholder="Cuéntanos breve tu caso" className="w-full border rounded-xl px-4 py-3" />
-                      <Button type="submit" className="w-full bg-brand hover:bg-brand-dark text-black">
+                      <Button type="submit" className="w-full bg-amber-500 hover:bg-amber-600 text-black">
                         Enviar
                       </Button>
                     </form>
