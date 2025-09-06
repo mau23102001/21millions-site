@@ -13,7 +13,6 @@ import {
 } from "../components/ui/accordion";
 
 import {
-  CheckCircle,
   Shield,
   LineChart,
   Briefcase,
@@ -164,30 +163,32 @@ export default function Landing21Millions() {
                 </div>
               </div>
 
+              {/* === Card educativo: ¿Qué es Bitcoin? === */}
               <div className="lg:col-span-5">
-                <Card className="shadow-xl rounded-2xl">
-                  <CardHeader>
-                    <CardTitle className="text-xl">Caso rápido: Asignación 5% de caja</CardTitle>
+                <Card className="shadow-xl rounded-2xl text-center">
+                  <CardHeader className="flex flex-col items-center gap-3">
+                    <Image
+                      src="/btc-icon.png"      // coloca /public/btc-icon.png
+                      alt="Bitcoin"
+                      width={40}
+                      height={40}
+                      className="rounded-full"
+                    />
+                    <CardTitle className="text-xl">¿Qué es Bitcoin?</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3 text-sm">
-                    <div className="flex items-center justify-between">
-                      <span>Caja disponible</span>
-                      <strong>S/ 4,000,000</strong>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>Asignación inicial</span>
-                      <strong>5% (S/ 200,000)</strong>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>Estrategia</span>
-                      <span>DCAs trimestrales + rebalance</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>Horizonte</span>
-                      <span>36–60 meses</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-neutral-600">
-                      <CheckCircle className="h-4 w-4" /> Política de inversión aprobada por comité de tesorería
+                  <CardContent className="space-y-3 text-sm text-neutral-700">
+                    <p>
+                      Bitcoin <strong>no es una empresa</strong>. Es una{" "}
+                      <strong>tecnología digital independiente</strong>, abierta y
+                      descentralizada.
+                    </p>
+                    <p>
+                      Cualquier persona puede adquirir y resguardar Bitcoin como{" "}
+                      <strong>reserva de valor global</strong>.
+                    </p>
+                    <div className="flex flex-col items-center gap-1 text-neutral-600 text-xs mt-2">
+                      <div>🌍 Emisión limitada: 21 millones</div>
+                      <div>🔒 Seguridad respaldada por su red global</div>
                     </div>
                   </CardContent>
                 </Card>
