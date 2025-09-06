@@ -179,7 +179,7 @@ export default function Landing21Millions() {
                   <CardContent className="space-y-3 text-sm text-neutral-700">
                     <p>
                       Bitcoin <strong>no es una empresa</strong>. Es una{" "}
-                      <strong>tecnología digital independiente</strong>, abierta y
+                      <strong>tecnología digital independiente</strong>, abierta, más escaza cada 4 años y
                       descentralizada.
                     </p>
                     <p>
@@ -187,7 +187,7 @@ export default function Landing21Millions() {
                       <strong>reserva de valor global</strong>.
                     </p>
                     <div className="flex flex-col items-center gap-1 text-neutral-600 text-xs mt-2">
-                      <div>🌍 Emisión limitada: 21 millones</div>
+                      <div>🌍 Emisión limitada: Solo existen 21 millones de monedas Bitcoin</div>
                       <div>🔒 Seguridad respaldada por su red global</div>
                     </div>
                   </CardContent>
