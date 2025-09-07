@@ -47,7 +47,7 @@ export const dynamic = "force-dynamic";
 /** ===== Datos de contacto ===== */
 const EMAIL = "21millionspe@gmail.com";
 const WHATSAPP_LINK =
-  "https://wa.me/51999999999?text=Hola%20quiero%20agendar%20un%20diagnostico";
+  "https://wa.me/51941437729?text=Hola%20quiero%20agendar%20una%20reunion%20gratuita";
 
 /** ===== Datos para el gráfico (aprox + proyección ilustrativa) ===== */
 const btcSeries = [
@@ -58,7 +58,7 @@ const btcSeries = [
   { year: 2021, real: 69000,  projection: null },
   { year: 2022, real: 16500,  projection: null },
   { year: 2024, real: 73000,  projection: null },
-  { year: 2025, real: 95000,  projection: 95000 }, // desde aquí dibujamos proyección
+  { year: 2025, real: 100000, projection: 100000 }, // actualizamos 2025 a 100k
   { year: 2030, real: null,   projection: 250000 },
   { year: 2035, real: null,   projection: 750000 },
   { year: 2040, real: null,   projection: 1500000 },
@@ -85,7 +85,7 @@ function GrowthChart() {
               scale="log"
               domain={["dataMin", "auto"]}
               allowDecimals={false}
-              width={84} // asegura que se vea el "1" en 1,000,000
+              width={84} // asegura que se vea “1,000,000”
               tickFormatter={(v) => fmtMoney(Number(v))}
             />
             <Tooltip
@@ -107,8 +107,8 @@ function GrowthChart() {
       </div>
 
       <p className="mt-2 text-xs text-neutral-500">
-        La línea discontinua es una proyección ilustrativa inspirada en la tesis de adopción de
-        Michael Saylor (MicroStrategy). No es recomendación de inversión.
+        La línea discontinua es una proyección ilustrativa inspirada en la tesis de adopción de Michael
+        Saylor (Strategy). No es recomendación de inversión.
       </p>
     </div>
   );
@@ -117,6 +117,11 @@ function GrowthChart() {
 export default function Landing21Millions() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [tab, setTab] = useState<"personas" | "empresas">("empresas");
+
+  // paleta “dorado”
+  const gold = "bg-[#C9A227]";
+  const goldHover = "hover:bg-[#B38F1B]";
+  const goldUnderline = "decoration-[#C9A227]";
 
   return (
     <>
@@ -154,14 +159,14 @@ export default function Landing21Millions() {
             {/* Derecha: CTA */}
             <div className="flex items-center gap-3">
               <a
-                aria-label="Agendar reunión por WhatsApp"
+                aria-label="Escríbenos por WhatsApp"
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noopener"
                 className="hidden sm:inline-block"
               >
-                <Button className="bg-amber-500 hover:bg-amber-600 text-black">
-                  Agenda reunión
+                <Button className={`${gold} ${goldHover} text-black`}>
+                  Escríbenos por WhatsApp
                 </Button>
               </a>
               <a href={`mailto:${EMAIL}`} className="sr-only">Escríbenos por email</a>
@@ -193,7 +198,9 @@ export default function Landing21Millions() {
                 <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
                 <a href="#niif" className="hover:text-neutral-700">Contabilidad &amp; Cumplimiento</a>
                 <a href="#faq" className="hover:text-neutral-700">FAQ</a>
-                <a href="#contacto" className="hover:text-neutral-700">Contacto</a>
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener" className="hover:text-neutral-700">
+                  Escríbenos por WhatsApp
+                </a>
               </div>
             </nav>
           )}
@@ -213,16 +220,17 @@ export default function Landing21Millions() {
               <div className="lg:col-span-7">
                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
                   Tesorería inteligente en Bitcoin para{" "}
-                  <span className="underline decoration-amber-500 decoration-8 underline-offset-4">personas</span> y{" "}
-                  <span className="underline decoration-amber-500 decoration-8 underline-offset-4">empresas</span>.
+                  <span className={`underline ${goldUnderline} decoration-8 underline-offset-4`}>personas</span> y{" "}
+                  <span className={`underline ${goldUnderline} decoration-8 underline-offset-4`}>empresas</span>.
                 </h1>
                 <p className="mt-6 text-lg text-neutral-700 max-w-2xl">
                   Te ayudamos a convertir caja ociosa en una estrategia de ahorro/tesorería de largo plazo,
-                  con reglas claras, seguridad y cumplimiento local.
+                  con reglas claras, seguridad y cumplimiento local. <strong>Protege tu poder de compra
+                  frente a la inflación</strong> integrando Bitcoin con criterio y buen gobierno.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a href="#contacto">
-                    <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-black">
+                    <Button size="lg" className={`${gold} ${goldHover} text-black`}>
                       Agenda una reunión gratuita
                     </Button>
                   </a>
@@ -232,7 +240,7 @@ export default function Landing21Millions() {
                 </div>
                 <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-neutral-600">
                   <div className="flex items-center gap-2">
-                    <Shield className="h-4 w-4" /> Enfoque no-custodia / sin trading por cuenta del cliente
+                    <Shield className="h-4 w-4" /> Solo enfoque no custodia
                   </div>
                   <div className="flex items-center gap-2">
                     <FileCheck2 className="h-4 w-4" /> Metodología documentada y auditable
@@ -253,15 +261,13 @@ export default function Landing21Millions() {
                     />
                     <CardTitle className="text-xl tracking-tight">¿Qué es Bitcoin?</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3 text-sm text-neutral-700">
+                  <CardContent className="space-y-3 text-sm text-neutral-700 font-sans">
                     <p>
                       Bitcoin <strong>no es una empresa</strong>. Es una{" "}
-                      <strong>tecnología digital independiente</strong>, abierta,{" "}
-                      más <strong>escasa</strong> cada 4 años y descentralizada.
+                      <strong>tecnología digital independiente</strong>, abierta, más <strong>escasa</strong> cada 4 años y descentralizada.
                     </p>
                     <p>
-                      Cualquier persona puede adquirir y resguardar Bitcoin como{" "}
-                      <strong>reserva de valor global</strong>.
+                      Cualquier persona puede adquirir y resguardar Bitcoin como <strong>reserva de valor global</strong>.
                     </p>
                     <div className="flex flex-col items-start gap-2 text-neutral-600 text-xs mt-2">
                       <div className="flex items-center gap-2">
@@ -304,10 +310,7 @@ export default function Landing21Millions() {
               <p className="mt-2 text-neutral-700">
                 Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
               </p>
-              <div className="mt-3 inline-flex items-center gap-2 text-xs px-2 py-1 rounded-full border bg-neutral-50">
-                <span className="opacity-70">tab actual:</span>
-                <span className="font-mono">{tab}</span>
-              </div>
+              {/* Se elimina “tab actual” */}
             </div>
 
             {/* Tabs */}
@@ -420,13 +423,12 @@ export default function Landing21Millions() {
                 <Card className="rounded-2xl">
                   <CardHeader><CardTitle className="text-lg">Implementación &amp; Seguimiento</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
-                    <p>
-                      Acompañamiento en la ejecución con **custodia en manos del cliente** y reportes trimestrales para directorio.
-                    </p>
+                    <p>Implementación práctica con <strong>custodia en manos del cliente</strong> y acompañamiento periódico.</p>
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>KPIs y tablero</li>
-                      <li>Compliance local</li>
-                      <li>Auditoría interna</li>
+                      <li>Plan operativo de compras (DCA / ventanas) y rebalance</li>
+                      <li>Configuración de monederos y/o multisig (si aplica)</li>
+                      <li>Procedimiento de firma, resguardo y bitácora de movimientos</li>
+                      <li>Acompañamiento trimestral y revisión documental básica</li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -492,7 +494,7 @@ export default function Landing21Millions() {
 
         {/* Contabilidad & Cumplimiento */}
         <section id="niif" className="py-16 lg:py-24 scroll-mt-24 relative z-[10]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx_auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-12 gap-10">
               <div className="lg:col-span-6">
                 <h2 className="text-3xl font-bold tracking-tight">Contabilidad &amp; Cumplimiento</h2>
@@ -501,9 +503,10 @@ export default function Landing21Millions() {
                   internas alineadas a auditorías y a la documentación notarial de tu organización.
                 </p>
                 <ul className="mt-6 space-y-2 text-sm text-neutral-700 list-disc pl-5">
-                  <li>Modelo contable NIIF y anexos</li>
-                  <li>Revelaciones y políticas internas</li>
-                  <li>Soporte documental para comité / notaría</li>
+                  <li>Modelo contable NIIF para BTC (Perú)</li>
+                  <li>Políticas internas y notas de revelación</li>
+                  <li>Formato de conciliación y valorización</li>
+                  <li>Acta/carta de directorio para notaría (cuando corresponda)</li>
                 </ul>
               </div>
               <div className="lg:col-span-6">
@@ -511,16 +514,16 @@ export default function Landing21Millions() {
                   <CardHeader><CardTitle className="text-lg">Documentos incluidos</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <div className="flex items-center gap-2">
-                      <Scale className="h-4 w-4" /> Política de Tesorería BTC
+                      <Scale className="h-4 w-4" /> Política de Tesorería BTC (resumen ejecutivo)
                     </div>
                     <div className="flex items-center gap-2">
-                      <FileCheck2 className="h-4 w-4" /> Minuta para comité de tesorería
+                      <FileCheck2 className="h-4 w-4" /> Plantillas de políticas y revelaciones NIIF
                     </div>
                     <div className="flex items-center gap-2">
-                      <Banknote className="h-4 w-4" /> Modelo de asientos contables (ejemplo)
+                      <Banknote className="h-4 w-4" /> Formato de asientos y conciliación (ejemplo)
                     </div>
                     <div className="flex items-center gap-2">
-                      <Globe className="h-4 w-4" /> Procedimiento operativo estándar (POE)
+                      <Globe className="h-4 w-4" /> Guía POE de operaciones internas con BTC
                     </div>
                   </CardContent>
                 </Card>
@@ -561,7 +564,19 @@ export default function Landing21Millions() {
                 </AccordionItem>
                 <AccordionItem value="a4">
                   <AccordionTrigger>¿Puedo pagar en soles, dólares o Bitcoin?</AccordionTrigger>
-                  <AccordionContent>Sí. Aceptamos S/., USD o BTC, según el alcance del servicio.</AccordionContent>
+                  <AccordionContent>Sí. Aceptamos S/., USD o Bitcoin, según el alcance del servicio.</AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="a5">
+                  <AccordionTrigger>¿Qué problema/dolor solucionamos como empresa?</AccordionTrigger>
+                  <AccordionContent>
+                    Ayudamos a personas y empresas a <strong>dejar de perder poder adquisitivo</strong> por la inflación
+                    y el exceso de liquidez sin estrategia. Para personas, estructuramos un plan de ahorro en Bitcoin
+                    que protege el valor de su esfuerzo y ordena su custodia. Para empresas, definimos una política de
+                    tesorería que separa <em>caja mínima operativa</em> de <em>caja excedente</em>, establece reglas
+                    claras de compra y resguardo, y reduce riesgos operativos y contables. El costo de no actuar es la
+                    erosión anual del dinero y decisiones ad-hoc; nuestro servicio te da un sistema sencillo, medible y
+                    ejecutable hoy.
+                  </AccordionContent>
                 </AccordionItem>
               </Accordion>
             </div>
@@ -582,7 +597,7 @@ export default function Landing21Millions() {
                     <Mail className="h-4 w-4" /> {EMAIL}
                   </div>
                   <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4" /> +51 999 999 999
+                    <Phone className="h-4 w-4" /> +51 941 437 729
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4" /> Lima, Perú
@@ -598,7 +613,7 @@ export default function Landing21Millions() {
                       <input name="email" type="email" required placeholder="Correo" className="w-full border rounded-xl px-4 py-3" />
                       <input name="company" placeholder="Empresa (opcional)" className="w-full border rounded-xl px-4 py-3" />
                       <textarea name="message" rows={4} placeholder="Cuéntanos breve tu caso" className="w-full border rounded-xl px-4 py-3" />
-                      <Button type="submit" className="w-full bg-amber-500 hover:bg-amber-600 text-black">
+                      <Button type="submit" className={`w-full ${gold} ${goldHover} text-black`}>
                         Enviar
                       </Button>
                     </form>
