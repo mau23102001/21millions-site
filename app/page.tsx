@@ -58,7 +58,7 @@ const btcSeries = [
   { year: 2021, real: 69000,  projection: null },
   { year: 2022, real: 16500,  projection: null },
   { year: 2024, real: 73000,  projection: null },
-  { year: 2025, real: 100000, projection: 100000 }, // actualizamos 2025 a 100k
+  { year: 2025, real: 100000, projection: 100000 },
   { year: 2030, real: null,   projection: 250000 },
   { year: 2035, real: null,   projection: 750000 },
   { year: 2040, real: null,   projection: 1500000 },
@@ -85,7 +85,7 @@ function GrowthChart() {
               scale="log"
               domain={["dataMin", "auto"]}
               allowDecimals={false}
-              width={84} // asegura que se vea “1,000,000”
+              width={84}
               tickFormatter={(v) => fmtMoney(Number(v))}
             />
             <Tooltip
@@ -310,7 +310,6 @@ export default function Landing21Millions() {
               <p className="mt-2 text-neutral-700">
                 Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
               </p>
-              {/* Se elimina “tab actual” */}
             </div>
 
             {/* Tabs */}
@@ -436,7 +435,6 @@ export default function Landing21Millions() {
             )}
           </div>
         </section>
-        {/* ================= FIN SERVICIOS ================= */}
 
         {/* Proceso */}
         <section id="proceso" className="py-16 lg:py-24 bg-neutral-50 scroll-mt-24 relative z-[10]">
@@ -492,9 +490,9 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* Contabilidad & Cumplimiento */}
+        {/* Contabilidad & Cumplimiento (FIJADO EL CONTENEDOR) */}
         <section id="niif" className="py-16 lg:py-24 scroll-mt-24 relative z-[10]">
-          <div className="max-w-7xl mx_auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-12 gap-10">
               <div className="lg:col-span-6">
                 <h2 className="text-3xl font-bold tracking-tight">Contabilidad &amp; Cumplimiento</h2>
