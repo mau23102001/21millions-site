@@ -30,7 +30,7 @@ import {
 
 import { motion } from "framer-motion";
 
-// recharts (alias para no chocar con LineChart de lucide)
+// recharts
 import {
   LineChart as RLineChart,
   Line,
@@ -129,7 +129,7 @@ export default function Landing21Millions() {
         {/* Header */}
         <header className="sticky top-0 z-[60] bg-white/80 backdrop-blur border-b border-neutral-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            {/* Izquierda: logo + nombre */}
+            {/* Izquierda */}
             <div className="flex items-center gap-3">
               <Image
                 src="/logo-21m.png"
@@ -144,11 +144,8 @@ export default function Landing21Millions() {
               </span>
             </div>
 
-            {/* Centro: navegación (desktop) */}
-            <nav
-              aria-label="Navegación principal"
-              className="hidden md:flex items-center gap-6 text-sm"
-            >
+            {/* Nav */}
+            <nav aria-label="Navegación principal" className="hidden md:flex items-center gap-6 text-sm">
               <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
               <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
               <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
@@ -156,7 +153,7 @@ export default function Landing21Millions() {
               <a href="#faq" className="hover:text-neutral-700">FAQ</a>
             </nav>
 
-            {/* Derecha: CTA */}
+            {/* CTA */}
             <div className="flex items-center gap-3">
               <a
                 aria-label="Escríbenos por WhatsApp"
@@ -171,7 +168,7 @@ export default function Landing21Millions() {
               </a>
               <a href={`mailto:${EMAIL}`} className="sr-only">Escríbenos por email</a>
 
-              {/* Botón hamburguesa (móvil) */}
+              {/* Móvil */}
               <button
                 aria-label="Abrir menú"
                 className="md:hidden p-2 rounded-lg border"
@@ -185,13 +182,8 @@ export default function Landing21Millions() {
             </div>
           </div>
 
-          {/* Menú móvil */}
           {mobileOpen && (
-            <nav
-              id="mobile-menu"
-              className="md:hidden fixed inset-0 z-[70] bg-white border-t"
-              onClick={() => setMobileOpen(false)}
-            >
+            <nav id="mobile-menu" className="md:hidden fixed inset-0 z-[70] bg-white border-t" onClick={() => setMobileOpen(false)}>
               <div className="px-4 py-6 flex flex-col gap-4 text-base">
                 <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
                 <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
@@ -248,17 +240,11 @@ export default function Landing21Millions() {
                 </div>
               </div>
 
-              {/* === Card educativo: ¿Qué es Bitcoin? === */}
+              {/* ¿Qué es Bitcoin? */}
               <div className="lg:col-span-5">
                 <Card className="shadow-xl rounded-2xl text-center">
                   <CardHeader className="flex flex-col items-center gap-3">
-                    <Image
-                      src="/btc-icon.png"
-                      alt="Bitcoin"
-                      width={40}
-                      height={40}
-                      className="rounded-full"
-                    />
+                    <Image src="/btc-icon.png" alt="Bitcoin" width={40} height={40} className="rounded-full" />
                     <CardTitle className="text-xl tracking-tight">¿Qué es Bitcoin?</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3 text-sm text-neutral-700 font-sans">
@@ -270,14 +256,8 @@ export default function Landing21Millions() {
                       Cualquier persona puede adquirir y resguardar Bitcoin como <strong>reserva de valor global</strong>.
                     </p>
                     <div className="flex flex-col items-start gap-2 text-neutral-600 text-xs mt-2">
-                      <div className="flex items-center gap-2">
-                        <Globe className="h-3.5 w-3.5" />
-                        Emisión limitada: solo existen 21 millones de Bitcoin
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Shield className="h-3.5 w-3.5" />
-                        Seguridad respaldada por su red global
-                      </div>
+                      <div className="flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> Emisión limitada: solo existen 21 millones de Bitcoin</div>
+                      <div className="flex items-center gap-2"><Shield className="h-3.5 w-3.5" /> Seguridad respaldada por su red global</div>
                     </div>
                   </CardContent>
                 </Card>
@@ -295,9 +275,7 @@ export default function Landing21Millions() {
               "Modelo contable (NIIF Perú)",
               "Tus Bitcoin · custodia propia",
             ].map((t, i) => (
-              <div key={i} className="text-center text-sm text-neutral-600">
-                {t}
-              </div>
+              <div key={i} className="text-center text-sm text-neutral-600">{t}</div>
             ))}
           </div>
         </section>
@@ -314,11 +292,7 @@ export default function Landing21Millions() {
 
             {/* Tabs */}
             <div className="mt-6 max-w-md">
-              <div
-                role="tablist"
-                aria-label="Cambiar tipo de cliente"
-                className="inline-flex w-full rounded-xl border bg-neutral-50 p-1 shadow-sm"
-              >
+              <div role="tablist" aria-label="Cambiar tipo de cliente" className="inline-flex w-full rounded-xl border bg-neutral-50 p-1 shadow-sm">
                 <button
                   id="tab-personas"
                   type="button"
@@ -326,16 +300,9 @@ export default function Landing21Millions() {
                   aria-selected={tab === "personas"}
                   aria-controls="panel-personas"
                   onClick={() => setTab("personas")}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setTab("personas");
-                    }
-                  }}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setTab("personas"); } }}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full cursor-pointer select-none ${
-                    tab === "personas"
-                      ? "bg-white shadow font-medium text-neutral-800"
-                      : "text-neutral-600 hover:text-neutral-800"
+                    tab === "personas" ? "bg-white shadow font-medium text-neutral-800" : "text-neutral-600 hover:text-neutral-800"
                   }`}
                 >
                   <User className="h-4 w-4" />
@@ -349,16 +316,9 @@ export default function Landing21Millions() {
                   aria-selected={tab === "empresas"}
                   aria-controls="panel-empresas"
                   onClick={() => setTab("empresas")}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setTab("empresas");
-                    }
-                  }}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setTab("empresas"); } }}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition w-full cursor-pointer select-none ${
-                    tab === "empresas"
-                      ? "bg-white shadow font-medium text-neutral-800"
-                      : "text-neutral-600 hover:text-neutral-800"
+                    tab === "empresas" ? "bg-white shadow font-medium text-neutral-800" : "text-neutral-600 hover:text-neutral-800"
                   }`}
                 >
                   <Building2 className="h-4 w-4" />
@@ -367,31 +327,63 @@ export default function Landing21Millions() {
               </div>
             </div>
 
-            {/* Panel (solo uno montado) */}
+            {/* Panel PERSONAS: detallado */}
             {tab === "personas" ? (
-              <div id="panel-personas" role="tabpanel" aria-labelledby="tab-personas" className="mt-8 grid md:grid-cols-3 gap-6">
+              <div id="panel-personas" role="tabpanel" aria-labelledby="tab-personas" className="mt-8 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Asesoría Personal</CardTitle></CardHeader>
+                  <CardHeader><CardTitle className="text-lg">Diagnóstico & Plan</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
-                    <p>Planificación financiera y tesorería adaptada a personas naturales.</p>
+                    <p>Levantamiento simple de tu situación y objetivos para definir cuánto y cómo empezar.</p>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Fondo de emergencia (3–6 meses)</li>
+                      <li>Excedente de ahorro vs. gastos</li>
+                      <li>% prudente de inicio (1–5%)</li>
+                      <li>Horizonte y metas</li>
+                    </ul>
                   </CardContent>
                 </Card>
 
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Ahorro en BTC</CardTitle></CardHeader>
+                  <CardHeader><CardTitle className="text-lg">Estrategia de Ahorro</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
-                    <p>Estrategias de ahorro a largo plazo con Bitcoin como reserva de valor.</p>
+                    <p>Reglas claras para comprar sin estrés y conservar a largo plazo.</p>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>DCA o ventanas de compra</li>
+                      <li>Umbrales y rebalance</li>
+                      <li>Límites máximos por periodo</li>
+                      <li>Checklist anti-impulso</li>
+                    </ul>
                   </CardContent>
                 </Card>
 
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Seguridad y Custodia</CardTitle></CardHeader>
+                  <CardHeader><CardTitle className="text-lg">Custodia & Seguridad</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
-                    <p>Recomendaciones sobre almacenamiento seguro y control personal.</p>
+                    <p>Custodia siempre en tus manos. Te guiamos a configurarlo bien desde el inicio.</p>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Wallet recomendada (HW/SW)</li>
+                      <li>Respaldo de seed y almacenamiento</li>
+                      <li>Prueba de recuperación</li>
+                      <li>Buenas prácticas de uso</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card className="rounded-2xl">
+                  <CardHeader><CardTitle className="text-lg">Seguimiento & Soporte</CardTitle></CardHeader>
+                  <CardContent className="text-sm space-y-2">
+                    <p>Control simple y soporte básico para mantener el rumbo.</p>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Bitácora y plantilla de valorización</li>
+                      <li>Revisión trimestral</li>
+                      <li>Orientación tributaria básica (PE)</li>
+                      <li>FAQs y soporte por correo</li>
+                    </ul>
                   </CardContent>
                 </Card>
               </div>
             ) : (
+              // Panel EMPRESAS (sin cambios)
               <div id="panel-empresas" role="tabpanel" aria-labelledby="tab-empresas" className="mt-8 grid md:grid-cols-3 gap-6">
                 <Card className="rounded-2xl">
                   <CardHeader><CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle></CardHeader>
@@ -466,7 +458,7 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* BTC en perspectiva (Gráfico) */}
+        {/* BTC en perspectiva */}
         <section id="btc-en-perspectiva" className="py-16 lg:py-24 scroll-mt-24 relative z-[10]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-12 gap-10 items-start">
@@ -490,7 +482,7 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* Contabilidad & Cumplimiento (FIJADO EL CONTENEDOR) */}
+        {/* Contabilidad & Cumplimiento */}
         <section id="niif" className="py-16 lg:py-24 scroll-mt-24 relative z-[10]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-12 gap-10">
@@ -511,18 +503,10 @@ export default function Landing21Millions() {
                 <Card className="rounded-2xl">
                   <CardHeader><CardTitle className="text-lg">Documentos incluidos</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Scale className="h-4 w-4" /> Política de Tesorería BTC (resumen ejecutivo)
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <FileCheck2 className="h-4 w-4" /> Plantillas de políticas y revelaciones NIIF
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Banknote className="h-4 w-4" /> Formato de asientos y conciliación (ejemplo)
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Globe className="h-4 w-4" /> Guía POE de operaciones internas con BTC
-                    </div>
+                    <div className="flex items-center gap-2"><Scale className="h-4 w-4" /> Política de Tesorería BTC (resumen ejecutivo)</div>
+                    <div className="flex items-center gap-2"><FileCheck2 className="h-4 w-4" /> Plantillas de políticas y revelaciones NIIF</div>
+                    <div className="flex items-center gap-2"><Banknote className="h-4 w-4" /> Formato de asientos y conciliación (ejemplo)</div>
+                    <div className="flex items-center gap-2"><Globe className="h-4 w-4" /> Guía POE de operaciones internas con BTC</div>
                   </CardContent>
                 </Card>
               </div>
@@ -591,15 +575,9 @@ export default function Landing21Millions() {
                   Conversemos 30 minutos para entender tu situación y proponerte una ruta de acción clara.
                 </p>
                 <div className="mt-6 space-y-2 text-sm text-neutral-300">
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4" /> {EMAIL}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4" /> +51 941 437 729
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" /> Lima, Perú
-                  </div>
+                  <div className="flex items-center gap-2"><Mail className="h-4 w-4" /> {EMAIL}</div>
+                  <div className="flex items-center gap-2"><Phone className="h-4 w-4" /> +51 941 437 729</div>
+                  <div className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Lima, Perú</div>
                 </div>
               </div>
               <div className="lg:col-span-5">
@@ -611,9 +589,7 @@ export default function Landing21Millions() {
                       <input name="email" type="email" required placeholder="Correo" className="w-full border rounded-xl px-4 py-3" />
                       <input name="company" placeholder="Empresa (opcional)" className="w-full border rounded-xl px-4 py-3" />
                       <textarea name="message" rows={4} placeholder="Cuéntanos breve tu caso" className="w-full border rounded-xl px-4 py-3" />
-                      <Button type="submit" className={`w-full ${gold} ${goldHover} text-black`}>
-                        Enviar
-                      </Button>
+                      <Button type="submit" className={`w-full ${gold} ${goldHover} text-black`}>Enviar</Button>
                     </form>
                     <p className="mt-3 text-xs text-neutral-500">Al enviar aceptas nuestra política de privacidad.</p>
                   </CardContent>
