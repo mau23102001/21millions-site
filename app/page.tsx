@@ -107,8 +107,8 @@ function GrowthChart() {
       </div>
 
       <p className="mt-2 text-xs text-neutral-500">
-        La línea discontinua es una proyección ilustrativa inspirada en la tesis de adopción de Michael
-        Saylor (Strategy). No es recomendación de inversión.
+        La línea discontinua es una proyección ilustrativa inspirada en tesis de adopción. No es
+        recomendación de inversión.
       </p>
     </div>
   );
@@ -216,9 +216,9 @@ export default function Landing21Millions() {
                   <span className={`underline ${goldUnderline} decoration-8 underline-offset-4`}>empresas</span>.
                 </h1>
                 <p className="mt-6 text-lg text-neutral-700 max-w-2xl">
-                  Te ayudamos a convertir caja ociosa en una estrategia de ahorro/tesorería de largo plazo,
-                  con reglas claras, seguridad y cumplimiento local. <strong>Protege tu poder de compra
-                  frente a la inflación</strong> integrando Bitcoin con criterio y buen gobierno.
+                  Convertimos tu caja ociosa en una estrategia de tesorería de largo plazo,
+                  con reglas claras, seguridad y cumplimiento local. Integra Bitcoin con
+                  criterio y buen gobierno para <strong>proteger tu poder de compra frente a la inflación</strong>.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a href="#contacto">
@@ -232,7 +232,7 @@ export default function Landing21Millions() {
                 </div>
                 <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-neutral-600">
                   <div className="flex items-center gap-2">
-                    <Shield className="h-4 w-4" /> Solo enfoque no custodia
+                    <Shield className="h-4 w-4" /> Solo enfoque no custodia (no custodiamos ni captamos fondos)
                   </div>
                   <div className="flex items-center gap-2">
                     <FileCheck2 className="h-4 w-4" /> Metodología documentada y auditable
@@ -286,7 +286,7 @@ export default function Landing21Millions() {
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold tracking-tight">Servicios</h2>
               <p className="mt-2 text-neutral-700">
-                Portafolios y tesorerías con estrategia clara, documentación y seguimiento periódico.
+                Portafolios y tesorerías con estrategia clara, documentación completa y seguimiento periódico.
               </p>
             </div>
 
@@ -348,7 +348,7 @@ export default function Landing21Millions() {
                   <CardContent className="text-sm space-y-2">
                     <p>Reglas claras para comprar sin estrés y conservar a largo plazo.</p>
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>DCA o ventanas de compra</li>
+                      <li>Aportes periódicos o ventanas de compra</li>
                       <li>Umbrales y rebalance</li>
                       <li>Límites máximos por periodo</li>
                       <li>Checklist anti-impulso</li>
@@ -383,18 +383,16 @@ export default function Landing21Millions() {
                 </Card>
               </div>
             ) : (
-              // Panel EMPRESAS (sin cambios)
+              // Panel EMPRESAS (mejorado)
               <div id="panel-empresas" role="tabpanel" aria-labelledby="tab-empresas" className="mt-8 grid md:grid-cols-3 gap-6">
                 <Card className="rounded-2xl">
                   <CardHeader><CardTitle className="text-lg">Diagnóstico de Tesorería</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <p>Revisión de caja, políticas actuales y oportunidades de asignación.</p>
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>Caja mínima operativa</li>
-                      <li>Caja excedente</li>
-                      <li>Mapa de riesgos</li>
-                      <li>Ventanas de compra</li>
-                      <li>Propuesta de % inicial</li>
+                      <li>Caja mínima operativa vs. caja excedente</li>
+                      <li>Mapa de riesgos y ventanas de compra</li>
+                      <li>Propuesta de % inicial y calendario</li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -402,11 +400,11 @@ export default function Landing21Millions() {
                 <Card className="rounded-2xl">
                   <CardHeader><CardTitle className="text-lg">Política BTC en el Balance</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
-                    <p>Documento formal para comité: objetivos, límites, rebalance y custodia.</p>
+                    <p>Documento formal para comité/directorio: objetivos, límites y rebalance.</p>
                     <ul className="list-disc pl-5 space-y-1">
                       <li>Gobernanza &amp; firmas</li>
                       <li>NIIF (activo intangible) y revelaciones</li>
-                      <li>Procedimientos operativos</li>
+                      <li>Procedimientos operativos (sin custodia por 21ME)</li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -416,10 +414,9 @@ export default function Landing21Millions() {
                   <CardContent className="text-sm space-y-2">
                     <p>Implementación práctica con <strong>custodia en manos del cliente</strong> y acompañamiento periódico.</p>
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>Plan operativo de compras (DCA / ventanas) y rebalance</li>
+                      <li>Plan operativo de compras (aportes periódicos/ventanas) y rebalance</li>
                       <li>Configuración de monederos y/o multisig (si aplica)</li>
-                      <li>Procedimiento de firma, resguardo y bitácora de movimientos</li>
-                      <li>Acompañamiento trimestral y revisión documental básica</li>
+                      <li>Bitácora, conciliaciones y revisión trimestral</li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -465,7 +462,7 @@ export default function Landing21Millions() {
               <div className="lg:col-span-5">
                 <h2 className="text-3xl font-bold tracking-tight">Bitcoin en perspectiva</h2>
                 <p className="mt-2 text-neutral-700">
-                  Oferta limitada (21 millones), halvings cada ~4 años y un mercado global 24/7 han
+                  Oferta limitada (21 millones), halving cada ~4 años y un mercado global 24/7 han
                   impulsado un crecimiento de largo plazo. La escala log ayuda a ver la tendencia.
                 </p>
                 <ul className="mt-4 text-sm text-neutral-700 list-disc pl-5">
@@ -498,10 +495,14 @@ export default function Landing21Millions() {
                   <li>Formato de conciliación y valorización</li>
                   <li>Acta/carta de directorio para notaría (cuando corresponda)</li>
                 </ul>
+                <p className="mt-4 text-xs text-neutral-500">
+                  21ME no realiza custodia, intermediación financiera ni captación de fondos. Diseñamos la política y los
+                  procesos; la ejecución y custodia quedan en manos del cliente.
+                </p>
               </div>
               <div className="lg:col-span-6">
                 <Card className="rounded-2xl">
-                  <CardHeader><CardTitle className="text-lg">Documentos incluidos</CardTitle></CardHeader>
+                  <CardHeader><CardTitle className="text-lg">Entregables incluidos</CardTitle></CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <div className="flex items-center gap-2"><Scale className="h-4 w-4" /> Política de Tesorería BTC (resumen ejecutivo)</div>
                     <div className="flex items-center gap-2"><FileCheck2 className="h-4 w-4" /> Plantillas de políticas y revelaciones NIIF</div>
@@ -526,29 +527,43 @@ export default function Landing21Millions() {
                 <AccordionItem value="a1">
                   <AccordionTrigger>¿Ustedes compran o custodian Bitcoin por mí?</AccordionTrigger>
                   <AccordionContent>
-                    No. Somos consultores. Diseñamos la estrategia y te guiamos para que compres y custodies tú (o tu
-                    empresa) con buenas prácticas y controles internos.
+                    No. Diseñamos la estrategia y los controles para que compres y custodies tú (o tu empresa)
+                    con buenas prácticas y segregación de funciones.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="a2">
-                  <AccordionTrigger>¿Cómo se refleja en la contabilidad (NIIF)?</AccordionTrigger>
+                  <AccordionTrigger>¿Cómo se refleja en la contabilidad (NIIF Perú)?</AccordionTrigger>
                   <AccordionContent>
-                    En general, como activo intangible, con revelaciones y políticas de valuación/impairment
-                    documentadas. Entregamos formatos y anexos de soporte para auditoría.
+                    En general, como activo intangible (NIC 38) con revelaciones y pruebas de deterioro (NIC 36).
+                    Entregamos plantillas y formatos de soporte para auditoría.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="a3">
                   <AccordionTrigger>¿Qué porcentaje recomiendan asignar?</AccordionTrigger>
                   <AccordionContent>
-                    Depende de tu caja, tu tolerancia al riesgo y tu horizonte. Empezamos con diagnósticos conservadores
-                    (1–5%) y revisamos trimestralmente.
+                    Depende de tu caja, tolerancia al riesgo y horizonte. Empezamos con diagnósticos prudentes (1–5%)
+                    y revisamos trimestralmente.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="a4">
+                  <AccordionTrigger>¿Qué pasa si el precio cae?</AccordionTrigger>
+                  <AccordionContent>
+                    La política define porcentajes prudentes, ventanas y rebalance. No especulamos; priorizamos
+                    continuidad y control de riesgos para sostener el plan a largo plazo.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="a5">
                   <AccordionTrigger>¿Puedo pagar en soles, dólares o Bitcoin?</AccordionTrigger>
                   <AccordionContent>Sí. Aceptamos S/., USD o Bitcoin, según el alcance del servicio.</AccordionContent>
                 </AccordionItem>
-                <AccordionItem value="a5">
+                <AccordionItem value="a6">
+                  <AccordionTrigger>¿Qué no hacen?</AccordionTrigger>
+                  <AccordionContent>
+                    No intermediamos, no captamos fondos, no custodiamos y no gestionamos portafolios. Somos
+                    consultores de tesorería y compliance.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="a7">
                   <AccordionTrigger>¿Qué problema/dolor solucionamos como empresa?</AccordionTrigger>
                   <AccordionContent>
                     Ayudamos a personas y empresas a <strong>dejar de perder poder adquisitivo</strong> por la inflación
@@ -561,6 +576,25 @@ export default function Landing21Millions() {
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
+            </div>
+          </div>
+        </section>
+
+        {/* QUIÉNES SOMOS / CONFIANZA */}
+        <section className="py-12 lg:py-16 border-t border-neutral-200 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 className="text-2xl font-bold tracking-tight">Quiénes somos / Confianza</h3>
+            <div className="mt-4 grid md:grid-cols-2 gap-6 text-sm text-neutral-700">
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Razón social: 21 MILLIONS ENTERPRISES S.A.C.</li>
+                <li>Naturaleza: Sociedad Anónima Cerrada en Perú.</li>
+                <li>Objeto: consultoría en políticas de tesorería para adopción de Bitcoin (sin custodia ni captación).</li>
+              </ul>
+              <p className="text-xs text-neutral-500">
+                21 MILLIONS ENTERPRISES S.A.C. brinda consultoría en políticas de tesorería para la adopción de Bitcoin.
+                No realiza custodia, intermediación financiera, captación de dinero del público ni gestión de portafolios.
+                La información del sitio es educativa y no constituye recomendación de inversión.
+              </p>
             </div>
           </div>
         </section>
