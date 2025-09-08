@@ -50,11 +50,9 @@ const WHATSAPP_LINK =
   "https://wa.me/51941437729?text=Hola%20quiero%20agendar%20una%20reunion%20gratuita";
 
 /** ===== Formspree =====
- * Reemplaza 'your-form-id' por tu ID real (p.ej. xayvkpjk),
- * o define NEXT_PUBLIC_FORMSPREE_ID en tu entorno.
+ * ID real del formulario (tu captura: https://formspree.io/f/mdklypye)
  */
-const FORMSPREE_ID =
-  process.env.NEXT_PUBLIC_FORMSPREE_ID || "your-form-id";
+const FORMSPREE_ID = "mdklypye";
 
 /** ===== Datos para el gráfico (aprox + proyección ilustrativa) ===== */
 const btcSeries = [
@@ -95,7 +93,10 @@ function GrowthChart() {
               width={84}
               tickFormatter={(v) => fmtMoney(Number(v))}
             />
-            <Tooltip formatter={(v) => [fmtMoney(Number(v)), "Precio"]} labelFormatter={(l) => `Año ${l}`} />
+            <Tooltip
+              formatter={(v) => [fmtMoney(Number(v)), "Precio"]}
+              labelFormatter={(l) => `Año ${l}`}
+            />
             <Legend />
             <Line type="monotone" dataKey="real" name="Histórico" dot={false} isAnimationActive />
             <Line
@@ -143,30 +144,22 @@ export default function Landing21Millions() {
     company: "",
     message: "",
   });
-  // Si llega ?cta=plan-inicio, precargar el mensaje una sola vez
+
+  // Precarga mensaje si llega ?cta=plan-inicio
   useEffect(() => {
     if (ctaParam === "plan-inicio" && !form.message) {
       setForm((f) => ({ ...f, message: "Hola, quiero mi plan de inicio." }));
     }
-  }, [ctaParam]); // eslint-disable-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctaParam]);
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
-
-  const useFormspree = FORMSPREE_ID && FORMSPREE_ID !== "your-form-id";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("loading");
     setErrorMsg("");
-
-    if (!useFormspree) {
-      setStatus("error");
-      setErrorMsg(
-        "El formulario no está configurado. Define NEXT_PUBLIC_FORMSPREE_ID o reemplaza FORMSPREE_ID con tu ID real de Formspree."
-      );
-      return;
-    }
 
     try {
       const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
@@ -191,7 +184,7 @@ export default function Landing21Millions() {
       } else {
         const data = await res.json().catch(() => ({}));
         const msg =
-          (data?.errors && Array.isArray(data.errors) && data.errors.map((x: any) => x.message).join(", ")) ||
+          (Array.isArray(data?.errors) && data.errors.map((x: any) => x.message).join(", ")) ||
           "No se pudo enviar. Intenta nuevamente.";
         setErrorMsg(msg);
         setStatus("error");
@@ -390,7 +383,7 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* ============ NUEVA SECCIÓN: PROBLEMA / DOLOR ============ */}
+        {/* ============ PROBLEMA / DOLOR ============ */}
         <section id="problema" className="py-16 lg:py-24 bg-neutral-50 scroll-mt-24 relative z-[10]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
@@ -782,7 +775,6 @@ export default function Landing21Millions() {
                     de tesorería y compliance.
                   </AccordionContent>
                 </AccordionItem>
-                {/* Eliminado el item duplicado sobre “problema/dolor” */}
               </Accordion>
             </div>
           </div>
@@ -854,7 +846,6 @@ export default function Landing21Millions() {
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <input type="hidden" name="cta" value={ctaParam ?? ""} />
-
                       <input
                         name="name"
                         required
@@ -896,9 +887,7 @@ export default function Landing21Millions() {
                       </Button>
                     </form>
 
-                    <p className="mt-3 text-xs text-neutral-500">
-                      Al enviar aceptas nuestra política de privacidad.
-                    </p>
+                    <p className="mt-3 text-xs text-neutral-500">Al enviar aceptas nuestra política de privacidad.</p>
                   </CardContent>
                 </Card>
               </div>
