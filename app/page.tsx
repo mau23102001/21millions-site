@@ -241,8 +241,7 @@ export default function Landing21Millions() {
                   <span className={`underline ${goldUnderline} decoration-8 underline-offset-4`}>empresas</span>.
                 </h1>
                 <p className="mt-6 text-lg text-neutral-700 max-w-2xl">
-                  Convertimos tu caja ociosa en una estrategia de tesorería de largo plazo, con reglas claras, seguridad
-                  y cumplimiento local. Integra Bitcoin con criterio y buen gobierno para{" "}
+                  Convertimos tu caja ociosa en una estrategia de tesorería de largo plazo, con reglas claras, seguridad y cumplimiento local. Integra Bitcoin con criterio y buen gobierno para protegerte contra la inflacion.{" "}
                   <strong>proteger tu poder de compra frente a la inflación</strong>.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
