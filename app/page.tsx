@@ -135,8 +135,72 @@ export default function Landing21Millions() {
       setCtaParam(v);
     }
   }, []);
-  const defaultMessage =
-    ctaParam === "plan-inicio" ? "Hola, quiero mi plan de inicio." : "";
+
+  // ======= Estado del formulario (contacto) =======
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  });
+  // Si llega ?cta=plan-inicio, precargar el mensaje una sola vez
+  useEffect(() => {
+    if (ctaParam === "plan-inicio" && !form.message) {
+      setForm((f) => ({ ...f, message: "Hola, quiero mi plan de inicio." }));
+    }
+  }, [ctaParam]); // eslint-disable-line
+
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const useFormspree = FORMSPREE_ID && FORMSPREE_ID !== "your-form-id";
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
+
+    if (!useFormspree) {
+      setStatus("error");
+      setErrorMsg(
+        "El formulario no está configurado. Define NEXT_PUBLIC_FORMSPREE_ID o reemplaza FORMSPREE_ID con tu ID real de Formspree."
+      );
+      return;
+    }
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          message: form.message,
+          cta: ctaParam ?? "",
+          _subject: "Nuevo contacto — 21 Millions Enterprises",
+        }),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setForm({ name: "", email: "", company: "", message: "" });
+      } else {
+        const data = await res.json().catch(() => ({}));
+        const msg =
+          (data?.errors && Array.isArray(data.errors) && data.errors.map((x: any) => x.message).join(", ")) ||
+          "No se pudo enviar. Intenta nuevamente.";
+        setErrorMsg(msg);
+        setStatus("error");
+      }
+    } catch {
+      setErrorMsg("Error de red al enviar. Revisa tu conexión.");
+      setStatus("error");
+    }
+  }
 
   return (
     <>
@@ -434,7 +498,7 @@ export default function Landing21Millions() {
               </div>
             </div>
 
-            {/* Panel PERSONAS: **mejorado** */}
+            {/* Panel PERSONAS */}
             {tab === "personas" ? (
               <div
                 id="panel-personas"
@@ -442,7 +506,6 @@ export default function Landing21Millions() {
                 aria-labelledby="tab-personas"
                 className="mt-8 grid md:grid-cols-2 lg:grid-cols-4 gap-6"
               >
-                {/* Card 1 */}
                 <Card className="rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Plan de inicio (simple y prudente)</CardTitle>
@@ -462,7 +525,6 @@ export default function Landing21Millions() {
                   </CardContent>
                 </Card>
 
-                {/* Card 2 */}
                 <Card className="rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Compras periódicas sin estrés</CardTitle>
@@ -478,13 +540,10 @@ export default function Landing21Millions() {
                       <li>Límites máximos por periodo</li>
                       <li>Checklist anti-impulso</li>
                     </ul>
-                    <p className="text-xs text-neutral-500">
-                      Incluye un simulador de aportes y un recordatorio mensual (opcional).
-                    </p>
+                    <p className="text-xs text-neutral-500">Incluye un simulador de aportes y un recordatorio mensual (opcional).</p>
                   </CardContent>
                 </Card>
 
-                {/* Card 3 */}
                 <Card className="rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Custodia segura</CardTitle>
@@ -504,7 +563,6 @@ export default function Landing21Millions() {
                   </CardContent>
                 </Card>
 
-                {/* Card 4 */}
                 <Card className="rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Acompañamiento &amp; Control</CardTitle>
@@ -525,7 +583,7 @@ export default function Landing21Millions() {
                 </Card>
               </div>
             ) : (
-              // Panel EMPRESAS (mejorado)
+              // Panel EMPRESAS
               <div id="panel-empresas" role="tabpanel" aria-labelledby="tab-empresas" className="mt-8 grid md:grid-cols-3 gap-6">
                 <Card className="rounded-2xl">
                   <CardHeader>
@@ -724,7 +782,7 @@ export default function Landing21Millions() {
                     de tesorería y compliance.
                   </AccordionContent>
                 </AccordionItem>
-                {/* Eliminado el item a7 (problema/dolor) por duplicidad */}
+                {/* Eliminado el item duplicado sobre “problema/dolor” */}
               </Accordion>
             </div>
           </div>
@@ -773,29 +831,37 @@ export default function Landing21Millions() {
                   </div>
                 </div>
               </div>
+
               <div className="lg:col-span-5">
                 <Card className="bg-white text-neutral-900 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="text-lg">Déjanos tus datos</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <form
-                      method="POST"
-                      action={`https://formspree.io/f/${FORMSPREE_ID}`}
-                      className="space-y-4"
-                    >
-                      {/* Tracking de origen */}
+                    {/* Mensajes de estado */}
+                    <div aria-live="polite" className="mb-4">
+                      {status === "success" && (
+                        <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+                          ✓ Mensaje enviado. Te responderemos pronto.
+                        </div>
+                      )}
+                      {status === "error" && (
+                        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                          {errorMsg || "No se pudo enviar. Intenta nuevamente."}
+                        </div>
+                      )}
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
                       <input type="hidden" name="cta" value={ctaParam ?? ""} />
-                      {/* Asunto para tu inbox */}
-                      <input type="hidden" name="_subject" value="Nuevo contacto — 21 Millions Enterprises" />
-                      {/* Anti-spam (honeypot) */}
-                      <input type="text" name="address" className="hidden" tabIndex={-1} autoComplete="off" />
 
                       <input
                         name="name"
                         required
                         placeholder="Nombre y apellido"
                         className="w-full border rounded-xl px-4 py-3"
+                        value={form.name}
+                        onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
                       />
                       <input
                         name="email"
@@ -803,23 +869,33 @@ export default function Landing21Millions() {
                         required
                         placeholder="Correo"
                         className="w-full border rounded-xl px-4 py-3"
+                        value={form.email}
+                        onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
                       />
                       <input
                         name="company"
                         placeholder="Empresa (opcional)"
                         className="w-full border rounded-xl px-4 py-3"
+                        value={form.company}
+                        onChange={(e) => setForm((f) => ({ ...f, company: e.target.value }))}
                       />
                       <textarea
                         name="message"
                         rows={4}
                         placeholder="Cuéntanos breve tu caso"
-                        defaultValue={defaultMessage}
                         className="w-full border rounded-xl px-4 py-3"
+                        value={form.message}
+                        onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
                       />
-                      <Button type="submit" className={`w-full ${gold} ${goldHover} text-black`}>
-                        Enviar
+                      <Button
+                        type="submit"
+                        className={`w-full ${gold} ${goldHover} text-black`}
+                        disabled={status === "loading"}
+                      >
+                        {status === "loading" ? "Enviando..." : "Enviar"}
                       </Button>
                     </form>
+
                     <p className="mt-3 text-xs text-neutral-500">
                       Al enviar aceptas nuestra política de privacidad.
                     </p>
