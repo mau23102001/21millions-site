@@ -50,10 +50,11 @@ const WHATSAPP_LINK =
   "https://wa.me/51941437729?text=Hola%20quiero%20agendar%20una%20reunion%20gratuita";
 
 /** ===== Formspree =====
- * Usará la variable de entorno si existe, y si no,
- * hará fallback al ID real de tu formulario (mdklpype).
+ * Reemplaza 'your-form-id' por tu ID real (p.ej. xayvkpjk),
+ * o define NEXT_PUBLIC_FORMSPREE_ID en tu entorno.
  */
-const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID ?? "mdklpype";
+const FORMSPREE_ID =
+  process.env.NEXT_PUBLIC_FORMSPREE_ID || "your-form-id";
 
 /** ===== Datos para el gráfico (aprox + proyección ilustrativa) ===== */
 const btcSeries = [
@@ -147,13 +148,12 @@ export default function Landing21Millions() {
     if (ctaParam === "plan-inicio" && !form.message) {
       setForm((f) => ({ ...f, message: "Hola, quiero mi plan de inicio." }));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ctaParam]);
+  }, [ctaParam]); // eslint-disable-line
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const useFormspree = Boolean(FORMSPREE_ID);
+  const useFormspree = FORMSPREE_ID && FORMSPREE_ID !== "your-form-id";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -163,7 +163,7 @@ export default function Landing21Millions() {
     if (!useFormspree) {
       setStatus("error");
       setErrorMsg(
-        "El formulario no está configurado. Define NEXT_PUBLIC_FORMSPREE_ID o usa un ID válido de Formspree."
+        "El formulario no está configurado. Define NEXT_PUBLIC_FORMSPREE_ID o reemplaza FORMSPREE_ID con tu ID real de Formspree."
       );
       return;
     }
