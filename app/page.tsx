@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import { Button } from "../components/ui/button";
@@ -119,17 +119,6 @@ export default function Landing21Millions() {
   const gold = "bg-[#C9A227]";
   const goldHover = "hover:bg-[#B38F1B]";
   const goldUnderline = "decoration-[#C9A227]";
-
-  // Detectar CTA para pre-rellenar formulario
-  const [ctaParam, setCtaParam] = useState<string | null>(null);
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const p = new URLSearchParams(window.location.search).get("cta");
-      setCtaParam(p);
-    }
-  }, []);
-  const defaultMessage =
-    ctaParam === "plan-inicio" ? "Hola, quiero mi plan de inicio. Estos son mis datos:" : "";
 
   return (
     <>
@@ -252,33 +241,20 @@ export default function Landing21Millions() {
                   <span className={`underline ${goldUnderline} decoration-8 underline-offset-4`}>empresas</span>.
                 </h1>
                 <p className="mt-6 text-lg text-neutral-700 max-w-2xl">
-                  Convertimos tu caja ociosa en una estrategia de tesorería de largo plazo, con reglas claras, seguridad y
-                  cumplimiento local. Integra Bitcoin con criterio y buen gobierno para{" "}
+                  Convertimos tu caja ociosa en una estrategia de tesorería de largo plazo, con reglas claras, seguridad
+                  y cumplimiento local. Integra Bitcoin con criterio y buen gobierno para{" "}
                   <strong>proteger tu poder de compra frente a la inflación</strong>.
                 </p>
-
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a href="#contacto">
                     <Button size="lg" className={`${gold} ${goldHover} text-black`}>
                       Agenda una reunión gratuita
                     </Button>
                   </a>
-
-                  {/* NUEVO CTA: Quiero mi plan de inicio */}
-                  <a href="?cta=plan-inicio#contacto" aria-label="Ir al formulario para solicitar mi plan de inicio">
-                    <Button
-                      size="lg"
-                      className="bg-white text-neutral-900 border border-neutral-300 hover:bg-neutral-50"
-                    >
-                      Quiero mi plan de inicio
-                    </Button>
-                  </a>
-
                   <a href="#servicios" className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80">
                     Ver servicios <ArrowRight className="h-4 w-4" />
                   </a>
                 </div>
-
                 <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-neutral-600">
                   <div className="flex items-center gap-2">
                     <Shield className="h-4 w-4" /> Solo enfoque no custodia (no custodiamos ni captamos fondos)
@@ -393,7 +369,7 @@ export default function Landing21Millions() {
               </div>
             </div>
 
-            {/* Panel PERSONAS: mejorado */}
+            {/* Panel PERSONAS: **mejorado** */}
             {tab === "personas" ? (
               <div
                 id="panel-personas"
@@ -418,11 +394,6 @@ export default function Landing21Millions() {
                       <li>Horizonte y metas realistas</li>
                     </ul>
                     <p className="text-xs text-neutral-500">Resultado: 1 hoja con tu plan de inicio y calendario mensual.</p>
-
-                    {/* CTA dentro de la card */}
-                    <a href="?cta=plan-inicio#contacto" className="inline-block">
-                      <Button size="sm" className={`${gold} ${goldHover} text-black`}>Quiero mi plan de inicio</Button>
-                    </a>
                   </CardContent>
                 </Card>
 
@@ -443,7 +414,7 @@ export default function Landing21Millions() {
                       <li>Checklist anti-impulso</li>
                     </ul>
                     <p className="text-xs text-neutral-500">
-                      Incluye un simulador de aportes y un recordatorio mensual (opcional).
+                      Incluye un simulador de aportes y un recordatorio mensual (o “recordatorio mensual opcional”).
                     </p>
                   </CardContent>
                 </Card>
@@ -752,19 +723,10 @@ export default function Landing21Millions() {
                   </CardHeader>
                   <CardContent>
                     <form method="POST" action="https://formspree.io/f/your-id" className="space-y-4">
-                      {/* Campo oculto para saber desde qué CTA llegó */}
-                      <input type="hidden" name="cta" value={ctaParam ?? ""} />
-
                       <input name="name" required placeholder="Nombre y apellido" className="w-full border rounded-xl px-4 py-3" />
                       <input name="email" type="email" required placeholder="Correo" className="w-full border rounded-xl px-4 py-3" />
                       <input name="company" placeholder="Empresa (opcional)" className="w-full border rounded-xl px-4 py-3" />
-                      <textarea
-                        name="message"
-                        rows={4}
-                        placeholder="Cuéntanos breve tu caso"
-                        defaultValue={defaultMessage}
-                        className="w-full border rounded-xl px-4 py-3"
-                      />
+                      <textarea name="message" rows={4} placeholder="Cuéntanos breve tu caso" className="w-full border rounded-xl px-4 py-3" />
                       <Button type="submit" className={`w-full ${gold} ${goldHover} text-black`}>
                         Enviar
                       </Button>
