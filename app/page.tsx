@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { Button } from "../components/ui/button";
@@ -48,6 +48,13 @@ export const dynamic = "force-dynamic";
 const EMAIL = "21millionspe@gmail.com";
 const WHATSAPP_LINK =
   "https://wa.me/51941437729?text=Hola%20quiero%20agendar%20una%20reunion%20gratuita";
+
+/** ===== Formspree =====
+ * Reemplaza 'your-form-id' por tu ID real (p.ej. xayvkpjk),
+ * o define NEXT_PUBLIC_FORMSPREE_ID en tu entorno.
+ */
+const FORMSPREE_ID =
+  process.env.NEXT_PUBLIC_FORMSPREE_ID || "your-form-id";
 
 /** ===== Datos para el gráfico (aprox + proyección ilustrativa) ===== */
 const btcSeries = [
@@ -119,6 +126,17 @@ export default function Landing21Millions() {
   const gold = "bg-[#C9A227]";
   const goldHover = "hover:bg-[#B38F1B]";
   const goldUnderline = "decoration-[#C9A227]";
+
+  // tracking CTA (?cta=...) y mensaje por defecto del formulario
+  const [ctaParam, setCtaParam] = useState<string | null>(null);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const v = new URLSearchParams(window.location.search).get("cta");
+      setCtaParam(v);
+    }
+  }, []);
+  const defaultMessage =
+    ctaParam === "plan-inicio" ? "Hola, quiero mi plan de inicio." : "";
 
   return (
     <>
@@ -328,8 +346,8 @@ export default function Landing21Millions() {
                   <CardTitle className="text-base">Para personas</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-neutral-700">
-                  Estructuramos un plan de ahorro en Bitcoin que <strong>protege el valor de tu esfuerzo</strong> y{" "}
-                  ten el control propio de tu dinero.
+                  Estructuramos un plan de ahorro en Bitcoin que <strong>protege el valor de tu esfuerzo</strong> y te
+                  permite mantener el control de tu dinero.
                 </CardContent>
               </Card>
 
@@ -342,14 +360,14 @@ export default function Landing21Millions() {
                 </CardHeader>
                 <CardContent className="text-sm text-neutral-700">
                   Definimos una <strong>política de tesorería</strong> que separa{" "}
-                  <em>caja mínima operativa</em> de <em>caja excedente</em>, establece reglas claras de compra y resguardo,
-                  reduce riesgos operativos y contables.
+                  <em>caja mínima operativa</em> de <em>caja excedente</em>, establece reglas claras de compra y resguardo
+                  y reduce riesgos operativos y contables.
                 </CardContent>
               </Card>
             </div>
 
             <p className="mt-8 text-sm text-neutral-600">
-              El costo de no actuar es la devaluacion anual del dinero; nuestro servicio te da un{" "}
+              El costo de no actuar es la <strong>devaluación</strong> anual del dinero; nuestro servicio te da un{" "}
               <strong>sistema sencillo, medible y ejecutable hoy</strong>.
             </p>
           </div>
@@ -461,7 +479,7 @@ export default function Landing21Millions() {
                       <li>Checklist anti-impulso</li>
                     </ul>
                     <p className="text-xs text-neutral-500">
-                      Incluye un simulador de aportes y un recordatorio mensual (o “recordatorio mensual opcional”).
+                      Incluye un simulador de aportes y un recordatorio mensual (opcional).
                     </p>
                   </CardContent>
                 </Card>
@@ -706,18 +724,7 @@ export default function Landing21Millions() {
                     de tesorería y compliance.
                   </AccordionContent>
                 </AccordionItem>
-                <AccordionItem value="a7">
-                  <AccordionTrigger>¿Qué problema/dolor solucionamos como empresa?</AccordionTrigger>
-                  <AccordionContent>
-                    Ayudamos a personas y empresas a <strong>dejar de perder poder adquisitivo</strong> por la inflación y
-                    el exceso de liquidez sin estrategia. Para personas, estructuramos un plan de ahorro en Bitcoin que
-                    protege el valor de su esfuerzo y ordena su custodia. Para empresas, definimos una política de
-                    tesorería que separa <em>caja mínima operativa</em> de <em>caja excedente</em>, establece reglas claras
-                    de compra y resguardo, y reduce riesgos operativos y contables. El costo de no actuar es la erosión
-                    anual del dinero y decisiones ad-hoc; nuestro servicio te da un sistema sencillo, medible y ejecutable
-                    hoy.
-                  </AccordionContent>
-                </AccordionItem>
+                {/* Eliminado el item a7 (problema/dolor) por duplicidad */}
               </Accordion>
             </div>
           </div>
@@ -753,7 +760,10 @@ export default function Landing21Millions() {
                 </p>
                 <div className="mt-6 space-y-2 text-sm text-neutral-300">
                   <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4" /> {EMAIL}
+                    <Mail className="h-4 w-4" />
+                    <a href={`mailto:${EMAIL}`} className="underline hover:opacity-80">
+                      {EMAIL}
+                    </a>
                   </div>
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4" /> +51 941 437 729
@@ -769,16 +779,50 @@ export default function Landing21Millions() {
                     <CardTitle className="text-lg">Déjanos tus datos</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <form method="POST" action="https://formspree.io/f/your-id" className="space-y-4">
-                      <input name="name" required placeholder="Nombre y apellido" className="w-full border rounded-xl px-4 py-3" />
-                      <input name="email" type="email" required placeholder="Correo" className="w-full border rounded-xl px-4 py-3" />
-                      <input name="company" placeholder="Empresa (opcional)" className="w-full border rounded-xl px-4 py-3" />
-                      <textarea name="message" rows={4} placeholder="Cuéntanos breve tu caso" className="w-full border rounded-xl px-4 py-3" />
+                    <form
+                      method="POST"
+                      action={`https://formspree.io/f/${FORMSPREE_ID}`}
+                      className="space-y-4"
+                    >
+                      {/* Tracking de origen */}
+                      <input type="hidden" name="cta" value={ctaParam ?? ""} />
+                      {/* Asunto para tu inbox */}
+                      <input type="hidden" name="_subject" value="Nuevo contacto — 21 Millions Enterprises" />
+                      {/* Anti-spam (honeypot) */}
+                      <input type="text" name="address" className="hidden" tabIndex={-1} autoComplete="off" />
+
+                      <input
+                        name="name"
+                        required
+                        placeholder="Nombre y apellido"
+                        className="w-full border rounded-xl px-4 py-3"
+                      />
+                      <input
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="Correo"
+                        className="w-full border rounded-xl px-4 py-3"
+                      />
+                      <input
+                        name="company"
+                        placeholder="Empresa (opcional)"
+                        className="w-full border rounded-xl px-4 py-3"
+                      />
+                      <textarea
+                        name="message"
+                        rows={4}
+                        placeholder="Cuéntanos breve tu caso"
+                        defaultValue={defaultMessage}
+                        className="w-full border rounded-xl px-4 py-3"
+                      />
                       <Button type="submit" className={`w-full ${gold} ${goldHover} text-black`}>
                         Enviar
                       </Button>
                     </form>
-                    <p className="mt-3 text-xs text-neutral-500">Al enviar aceptas nuestra política de privacidad.</p>
+                    <p className="mt-3 text-xs text-neutral-500">
+                      Al enviar aceptas nuestra política de privacidad.
+                    </p>
                   </CardContent>
                 </Card>
               </div>
