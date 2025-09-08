@@ -329,7 +329,7 @@ export default function Landing21Millions() {
                 </CardHeader>
                 <CardContent className="text-sm text-neutral-700">
                   Estructuramos un plan de ahorro en Bitcoin que <strong>protege el valor de tu esfuerzo</strong> y{" "}
-                  ordena tu custodia.
+                  ten el control propio de tu dinero.
                 </CardContent>
               </Card>
 
@@ -349,7 +349,7 @@ export default function Landing21Millions() {
             </div>
 
             <p className="mt-8 text-sm text-neutral-600">
-              El costo de no actuar es la erosión anual del dinero y decisiones ad-hoc; nuestro servicio te da un{" "}
+              El costo de no actuar es la devaluacion anual del dinero; nuestro servicio te da un{" "}
               <strong>sistema sencillo, medible y ejecutable hoy</strong>.
             </p>
           </div>
