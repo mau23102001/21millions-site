@@ -343,7 +343,7 @@ export default function Landing21Millions() {
                 <CardContent className="text-sm text-neutral-700">
                   Definimos una <strong>política de tesorería</strong> que separa{" "}
                   <em>caja mínima operativa</em> de <em>caja excedente</em>, establece reglas claras de compra y resguardo,
-                  y reduce riesgos operativos y contables.
+                  reduce riesgos operativos y contables.
                 </CardContent>
               </Card>
             </div>
