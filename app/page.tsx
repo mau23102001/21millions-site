@@ -308,6 +308,53 @@ export default function Landing21Millions() {
           </div>
         </section>
 
+        {/* ============ NUEVA SECCIÓN: PROBLEMA / DOLOR ============ */}
+        <section id="problema" className="py-16 lg:py-24 bg-neutral-50 scroll-mt-24 relative z-[10]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
+              <h2 className="text-3xl font-bold tracking-tight">Problema/dolor que solucionamos</h2>
+              <p className="mt-2 text-neutral-700">
+                Ayudamos a personas y empresas a <strong>dejar de perder poder adquisitivo</strong> por la inflación y el
+                exceso de liquidez sin estrategia.
+              </p>
+            </div>
+
+            <div className="mt-8 grid md:grid-cols-2 gap-6">
+              <Card className="rounded-2xl">
+                <CardHeader className="flex flex-row items-center gap-3">
+                  <div className="p-2 rounded-xl bg-white shadow-sm border">
+                    <User className="h-5 w-5" />
+                  </div>
+                  <CardTitle className="text-base">Para personas</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-neutral-700">
+                  Estructuramos un plan de ahorro en Bitcoin que <strong>protege el valor de tu esfuerzo</strong> y{" "}
+                  ordena tu custodia.
+                </CardContent>
+              </Card>
+
+              <Card className="rounded-2xl">
+                <CardHeader className="flex flex-row items-center gap-3">
+                  <div className="p-2 rounded-xl bg-white shadow-sm border">
+                    <Building2 className="h-5 w-5" />
+                  </div>
+                  <CardTitle className="text-base">Para empresas</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-neutral-700">
+                  Definimos una <strong>política de tesorería</strong> que separa{" "}
+                  <em>caja mínima operativa</em> de <em>caja excedente</em>, establece reglas claras de compra y resguardo,
+                  y reduce riesgos operativos y contables.
+                </CardContent>
+              </Card>
+            </div>
+
+            <p className="mt-8 text-sm text-neutral-600">
+              El costo de no actuar es la erosión anual del dinero y decisiones ad-hoc; nuestro servicio te da un{" "}
+              <strong>sistema sencillo, medible y ejecutable hoy</strong>.
+            </p>
+          </div>
+        </section>
+
         {/* =================== SERVICIOS =================== */}
         <section id="servicios" className="relative z-[300] isolate py-16 lg:py-24 scroll-mt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-auto">
