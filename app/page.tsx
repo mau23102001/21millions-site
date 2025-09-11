@@ -819,7 +819,7 @@ export default function Landing21Millions() {
                     <Phone className="h-4 w-4" /> +51 941 437 729
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" /> Lima, Perú
+                    <MapPin className="h-4 w-4" /> Calle Las Camelias 877, Int. 302 San Isidro, Lima, Perú
                   </div>
                 </div>
               </div>
