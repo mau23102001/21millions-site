@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
@@ -216,21 +217,15 @@ export default function Landing21Millions() {
 
             {/* Nav */}
             <nav aria-label="Navegación principal" className="hidden md:flex items-center gap-6 text-sm">
-              <a href="#servicios" className="hover:text-neutral-700">
-                Servicios
-              </a>
-              <a href="#proceso" className="hover:text-neutral-700">
-                Cómo trabajamos
-              </a>
-              <a href="#btc-en-perspectiva" className="hover:text-neutral-700">
-                BTC en perspectiva
-              </a>
-              <a href="#niif" className="hover:text-neutral-700">
-                Contabilidad &amp; Cumplimiento
-              </a>
-              <a href="#faq" className="hover:text-neutral-700">
-                FAQ
-              </a>
+              <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
+              <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
+              <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
+              <a href="#niif" className="hover:text-neutral-700">Contabilidad &amp; Cumplimiento</a>
+              <a href="#faq" className="hover:text-neutral-700">FAQ</a>
+              {/* NUEVO: enlace a Capacitaciones */}
+              <Link href="/capacitaciones" className="hover:text-neutral-700">
+                Capacitaciones/Charlas
+              </Link>
             </nav>
 
             {/* CTA */}
@@ -275,21 +270,15 @@ export default function Landing21Millions() {
               onClick={() => setMobileOpen(false)}
             >
               <div className="px-4 py-6 flex flex-col gap-4 text-base">
-                <a href="#servicios" className="hover:text-neutral-700">
-                  Servicios
-                </a>
-                <a href="#proceso" className="hover:text-neutral-700">
-                  Cómo trabajamos
-                </a>
-                <a href="#btc-en-perspectiva" className="hover:text-neutral-700">
-                  BTC en perspectiva
-                </a>
-                <a href="#niif" className="hover:text-neutral-700">
-                  Contabilidad &amp; Cumplimiento
-                </a>
-                <a href="#faq" className="hover:text-neutral-700">
-                  FAQ
-                </a>
+                <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
+                <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
+                <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
+                <a href="#niif" className="hover:text-neutral-700">Contabilidad &amp; Cumplimiento</a>
+                <a href="#faq" className="hover:text-neutral-700">FAQ</a>
+                {/* NUEVO: enlace móvil */}
+                <Link href="/capacitaciones" className="hover:text-neutral-700">
+                  Capacitaciones/Charlas
+                </Link>
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener" className="hover:text-neutral-700">
                   Escríbenos por WhatsApp
                 </a>
