@@ -50,12 +50,10 @@ const EMAIL = "21millionspe@gmail.com";
 const WHATSAPP_LINK =
   "https://wa.me/51941437729?text=Hola%20quiero%20agendar%20una%20reunion%20gratuita";
 
-/** ===== Formspree =====
- * ID real del formulario (tu captura: https://formspree.io/f/mdklypye)
- */
+/** ===== Formspree ===== */
 const FORMSPREE_ID = "mdklypye";
 
-/** ===== Datos para el gráfico (aprox + proyección ilustrativa) ===== */
+/** ===== Datos para el gráfico ===== */
 const btcSeries = [
   { year: 2010, real: 0.05, projection: null },
   { year: 2013, real: 100, projection: null },
@@ -138,6 +136,19 @@ export default function Landing21Millions() {
     }
   }, []);
 
+  // Bloquear scroll del body cuando el menú móvil esté abierto (evita “texto mezclado” al hacer scroll)
+  useEffect(() => {
+    const body = document.body;
+    if (mobileOpen) {
+      body.style.overflow = "hidden";
+    } else {
+      body.style.overflow = "";
+    }
+    return () => {
+      body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   // ======= Estado del formulario (contacto) =======
   const [form, setForm] = useState({
     name: "",
@@ -200,11 +211,7 @@ export default function Landing21Millions() {
     <>
       <div className="min-h-screen bg-white text-neutral-900 font-sans">
         {/* Header */}
-        <header
-          className={`sticky top-0 z-[60] border-b border-neutral-200 ${
-            mobileOpen ? "bg-white" : "bg-white/80 backdrop-blur"
-          }`}
-        >
+        <header className="sticky top-0 z-[60] bg-white/90 backdrop-blur border-b border-neutral-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             {/* Izquierda */}
             <div className="flex items-center gap-3">
@@ -226,10 +233,7 @@ export default function Landing21Millions() {
               <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
               <a href="#niif" className="hover:text-neutral-700">Contabilidad &amp; Cumplimiento</a>
               <a href="#faq" className="hover:text-neutral-700">FAQ</a>
-              {/* NUEVO: enlace a Capacitaciones */}
-              <Link href="/capacitaciones" className="hover:text-neutral-700">
-                Capacitaciones/Charlas
-              </Link>
+              <Link href="/capacitaciones" className="hover:text-neutral-700">Capacitaciones/Charlas</Link>
             </nav>
 
             {/* CTA */}
@@ -241,7 +245,8 @@ export default function Landing21Millions() {
                 rel="noopener"
                 className="hidden sm:inline-block"
               >
-                <Button className={`h-9 px-3 rounded-xl text-sm ${gold} ${goldHover} text-black`}>
+                {/* Botón más compacto */}
+                <Button className={`px-4 py-2 text-sm rounded-xl ${gold} ${goldHover} text-black`}>
                   Escríbenos por WhatsApp
                 </Button>
               </a>
@@ -253,7 +258,7 @@ export default function Landing21Millions() {
               <button
                 aria-label="Abrir menú"
                 className="md:hidden p-2 rounded-lg border"
-                onClick={() => setMobileOpen((v) => !v)}
+                onClick={() => setMobileOpen(true)}
               >
                 <span className="sr-only">Abrir menú</span>
                 <svg
@@ -269,21 +274,33 @@ export default function Landing21Millions() {
             </div>
           </div>
 
+          {/* Menú móvil con FONDO BLANCO y scroll interno */}
           {mobileOpen && (
-            <nav id="mobile-menu" role="dialog" aria-modal="true" className="md:hidden fixed inset-0 z-[70]">
-              {/* Overlay blanco opaco (cierra al tocar fuera) */}
-              <div className="absolute inset-0 bg-white" onClick={() => setMobileOpen(false)} />
-              {/* Panel de enlaces */}
-              <div
-                className="relative px-4 py-6 flex flex-col gap-4 text-base overflow-y-auto h-full"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
-                <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
-                <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
-                <a href="#niif" className="hover:text-neutral-700">Contabilidad &amp; Cumplimiento</a>
-                <a href="#faq" className="hover:text-neutral-700">FAQ</a>
-                <Link href="/capacitaciones" className="hover:text-neutral-700">
+            <nav
+              id="mobile-menu"
+              className="md:hidden fixed inset-0 z-[70] bg-white shadow-xl overflow-y-auto"
+              role="dialog"
+              aria-modal="true"
+            >
+              <div className="px-4 py-4 border-b flex items-center justify-between">
+                <span className="font-medium">Menú</span>
+                <button
+                  aria-label="Cerrar menú"
+                  className="p-2 rounded-lg border"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+              <div className="px-4 py-6 flex flex-col gap-4 text-base">
+                <a href="#servicios" onClick={() => setMobileOpen(false)} className="hover:text-neutral-700">Servicios</a>
+                <a href="#proceso" onClick={() => setMobileOpen(false)} className="hover:text-neutral-700">Cómo trabajamos</a>
+                <a href="#btc-en-perspectiva" onClick={() => setMobileOpen(false)} className="hover:text-neutral-700">BTC en perspectiva</a>
+                <a href="#niif" onClick={() => setMobileOpen(false)} className="hover:text-neutral-700">Contabilidad &amp; Cumplimiento</a>
+                <a href="#faq" onClick={() => setMobileOpen(false)} className="hover:text-neutral-700">FAQ</a>
+                <Link href="/capacitaciones" onClick={() => setMobileOpen(false)} className="hover:text-neutral-700">
                   Capacitaciones/Charlas
                 </Link>
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener" className="hover:text-neutral-700">
@@ -318,7 +335,7 @@ export default function Landing21Millions() {
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a href="#contacto">
-                    <Button size="lg" className={`${gold} ${goldHover} text-black`}>
+                    <Button size="lg" className={`px-5 py-2.5 ${gold} ${goldHover} text-black`}>
                       Agenda una reunión gratuita
                     </Button>
                   </a>
@@ -379,7 +396,7 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* ============ PROBLEMA / DOLOR ============ */}
+        {/* PROBLEMA */}
         <section id="problema" className="py-16 lg:py-24 bg-neutral-50 scroll-mt-24 relative z-[10]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
@@ -426,7 +443,7 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* =================== SERVICIOS =================== */}
+        {/* SERVICIOS */}
         <section id="servicios" className="relative z-[300] isolate py-16 lg:py-24 scroll-mt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-auto">
             <div className="max-w-2xl">
@@ -776,7 +793,7 @@ export default function Landing21Millions() {
           </div>
         </section>
 
-        {/* QUIÉNES SOMOS / CONFIANZA */}
+        {/* QUIÉNES SOMOS */}
         <section className="py-12 lg:py-16 border-t border-neutral-200 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 className="text-2xl font-bold tracking-tight">Quiénes somos / Confianza</h3>
