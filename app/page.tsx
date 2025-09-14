@@ -200,7 +200,11 @@ export default function Landing21Millions() {
     <>
       <div className="min-h-screen bg-white text-neutral-900 font-sans">
         {/* Header */}
-        <header className="sticky top-0 z-[60] bg-white/80 backdrop-blur border-b border-neutral-200">
+        <header
+          className={`sticky top-0 z-[60] border-b border-neutral-200 ${
+            mobileOpen ? "bg-white" : "bg-white/80 backdrop-blur"
+          }`}
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             {/* Izquierda */}
             <div className="flex items-center gap-3">
@@ -237,7 +241,9 @@ export default function Landing21Millions() {
                 rel="noopener"
                 className="hidden sm:inline-block"
               >
-                <Button className={`${gold} ${goldHover} text-black`}>Escríbenos por WhatsApp</Button>
+                <Button className={`h-9 px-3 rounded-xl text-sm ${gold} ${goldHover} text-black`}>
+                  Escríbenos por WhatsApp
+                </Button>
               </a>
               <a href={`mailto:${EMAIL}`} className="sr-only">
                 Escríbenos por email
@@ -264,18 +270,19 @@ export default function Landing21Millions() {
           </div>
 
           {mobileOpen && (
-            <nav
-              id="mobile-menu"
-              className="md:hidden fixed inset-0 z-[70] bg-white border-t"
-              onClick={() => setMobileOpen(false)}
-            >
-              <div className="px-4 py-6 flex flex-col gap-4 text-base">
+            <nav id="mobile-menu" role="dialog" aria-modal="true" className="md:hidden fixed inset-0 z-[70]">
+              {/* Overlay blanco opaco (cierra al tocar fuera) */}
+              <div className="absolute inset-0 bg-white" onClick={() => setMobileOpen(false)} />
+              {/* Panel de enlaces */}
+              <div
+                className="relative px-4 py-6 flex flex-col gap-4 text-base overflow-y-auto h-full"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
                 <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
                 <a href="#btc-en-perspectiva" className="hover:text-neutral-700">BTC en perspectiva</a>
                 <a href="#niif" className="hover:text-neutral-700">Contabilidad &amp; Cumplimiento</a>
                 <a href="#faq" className="hover:text-neutral-700">FAQ</a>
-                {/* NUEVO: enlace móvil */}
                 <Link href="/capacitaciones" className="hover:text-neutral-700">
                   Capacitaciones/Charlas
                 </Link>
