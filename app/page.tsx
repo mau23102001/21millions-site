@@ -262,13 +262,13 @@ export default function Landing21Millions() {
           </div>
         </header>
 
-        {/* Menú móvil: overlay blanco con TODAS las opciones */}
+        {/* Menú móvil: overlay blanco por encima de TODO (z-[1000]) */}
         {mobileOpen && (
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="mobile-menu-title"
-            className="fixed inset-0 z-[90] md:hidden bg-white overflow-y-auto"
+            className="fixed inset-0 z-[1000] md:hidden bg-white overflow-y-auto"
           >
             {/* Barra superior */}
             <div className="sticky top-0 flex items-center justify-between px-4 py-4 border-b bg-white">
