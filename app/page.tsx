@@ -222,7 +222,7 @@ export default function Landing21Millions() {
               <span className="font-semibold tracking-tight">21 Millions Enterprises S.A.C.</span>
             </div>
 
-            {/* Nav */}
+            {/* Nav desktop */}
             <nav aria-label="Navegación principal" className="hidden md:flex items-center gap-6 text-sm">
               <a href="#servicios" className="hover:text-neutral-700">Servicios</a>
               <a href="#proceso" className="hover:text-neutral-700">Cómo trabajamos</a>
@@ -232,7 +232,7 @@ export default function Landing21Millions() {
               <Link href="/capacitaciones" className="hover:text-neutral-700">Capacitaciones/Charlas</Link>
             </nav>
 
-            {/* CTA */}
+            {/* CTA + toggle */}
             <div className="flex items-center gap-3">
               <a
                 aria-label="Escríbenos por WhatsApp"
@@ -241,16 +241,13 @@ export default function Landing21Millions() {
                 rel="noopener"
                 className="hidden sm:inline-block"
               >
-                {/* compacto */}
+                {/* CTA compacto */}
                 <Button className={`${gold} ${goldHover} text-black px-4 py-2 rounded-xl text-sm`}>
                   Escríbenos por WhatsApp
                 </Button>
               </a>
-              <a href={`mailto:${EMAIL}`} className="sr-only">
-                Escríbenos por email
-              </a>
 
-              {/* Móvil */}
+              {/* Botón menú móvil */}
               <button
                 aria-label="Abrir menú"
                 className="md:hidden p-2 rounded-lg border"
@@ -263,61 +260,65 @@ export default function Landing21Millions() {
               </button>
             </div>
           </div>
-
-          {/* Menú móvil: overlay blanco sólido */}
-          {mobileOpen && (
-            <div className="fixed inset-0 z-[80] md:hidden">
-              <div className="absolute inset-0 bg-white" />
-              <div className="relative h-full flex flex-col">
-                <div className="flex items-center justify-between px-4 py-4 border-b">
-                  <span className="font-medium">Menú</span>
-                  <button
-                    aria-label="Cerrar menú"
-                    className="p-2 rounded-lg border"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-
-                <nav className="px-4 py-6 flex flex-col gap-4 text-base overflow-y-auto">
-                  <a href="#servicios" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
-                    Servicios
-                  </a>
-                  <a href="#proceso" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
-                    Cómo trabajamos
-                  </a>
-                  <a href="#btc-en-perspectiva" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
-                    BTC en perspectiva
-                  </a>
-                  <a href="#niif" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
-                    Contabilidad &amp; Cumplimiento
-                  </a>
-                  <a href="#faq" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
-                    FAQ
-                  </a>
-                  <Link href="/capacitaciones" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
-                    Capacitaciones/Charlas
-                  </Link>
-
-                  <a
-                    href={WHATSAPP_LINK}
-                    target="_blank"
-                    rel="noopener"
-                    className="mt-4 inline-flex"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <Button className={`${gold} ${goldHover} text-black w-full`}>
-                      Escríbenos por WhatsApp
-                    </Button>
-                  </a>
-                </nav>
-              </div>
-            </div>
-          )}
         </header>
+
+        {/* Menú móvil: overlay blanco con TODAS las opciones */}
+        {mobileOpen && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="mobile-menu-title"
+            className="fixed inset-0 z-[90] md:hidden bg-white overflow-y-auto"
+          >
+            {/* Barra superior */}
+            <div className="sticky top-0 flex items-center justify-between px-4 py-4 border-b bg-white">
+              <span id="mobile-menu-title" className="font-medium">Menú</span>
+              <button
+                aria-label="Cerrar menú"
+                className="p-2 rounded-lg border"
+                onClick={() => setMobileOpen(false)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Opciones */}
+            <nav className="px-4 py-6 flex flex-col gap-4 text-base">
+              <a href="#servicios" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
+                Servicios
+              </a>
+              <a href="#proceso" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
+                Cómo trabajamos
+              </a>
+              <a href="#btc-en-perspectiva" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
+                BTC en perspectiva
+              </a>
+              <a href="#niif" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
+                Contabilidad &amp; Cumplimiento
+              </a>
+              <a href="#faq" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
+                FAQ
+              </a>
+              <Link href="/capacitaciones" className="hover:text-neutral-700" onClick={() => setMobileOpen(false)}>
+                Capacitaciones/Charlas
+              </Link>
+
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener"
+                className="mt-4 inline-flex"
+                onClick={() => setMobileOpen(false)}
+              >
+                <Button className={`${gold} ${goldHover} text-black w-full`}>
+                  Escríbenos por WhatsApp
+                </Button>
+              </a>
+            </nav>
+          </div>
+        )}
 
         {/* Hero */}
         <section className="relative overflow-hidden">
